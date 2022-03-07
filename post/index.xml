@@ -17,15 +17,6 @@
     </item>
     
     <item>
-      <title>My First Post</title>
-      <link>https://D1-novo.github.io/2022/03/07/my-first-post/</link>
-      <pubDate>Mon, 07 Mar 2022 12:15:43 +0800</pubDate>
-      
-      <guid>https://D1-novo.github.io/2022/03/07/my-first-post/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>String StringBuffer 和 StringBuilder 的区别是什么? String 为什么是不可变的?</title>
       <link>https://D1-novo.github.io/2021/12/31/string-stringbuffer-%E5%92%8C-stringbuilder-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88-string-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</link>
       <pubDate>Fri, 31 Dec 2021 11:16:17 +0000</pubDate>
