@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>A Hugo website</title>
-    <link>https://D1-novo.github.io/</link>
+    <link>https://zhuweixiong22.github.io/</link>
     <description>Recent content on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 07 Mar 2022 12:15:50 +0800</lastBuildDate><atom:link href="https://D1-novo.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Mar 2022 12:15:50 +0800</lastBuildDate><atom:link href="https://zhuweixiong22.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My 2 Post</title>
-      <link>https://D1-novo.github.io/2022/03/07/my-2-post/</link>
+      <link>https://zhuweixiong22.github.io/2022/03/07/my-2-post/</link>
       <pubDate>Mon, 07 Mar 2022 12:15:50 +0800</pubDate>
       
-      <guid>https://D1-novo.github.io/2022/03/07/my-2-post/</guid>
+      <guid>https://zhuweixiong22.github.io/2022/03/07/my-2-post/</guid>
       <description></description>
     </item>
     
     <item>
       <title>String StringBuffer 和 StringBuilder 的区别是什么? String 为什么是不可变的?</title>
-      <link>https://D1-novo.github.io/2021/12/31/string-stringbuffer-%E5%92%8C-stringbuilder-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88-string-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</link>
+      <link>https://zhuweixiong22.github.io/2021/12/31/string-stringbuffer-%E5%92%8C-stringbuilder-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88-string-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</link>
       <pubDate>Fri, 31 Dec 2021 11:16:17 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/2021/12/31/string-stringbuffer-%E5%92%8C-stringbuilder-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88-string-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</guid>
+      <guid>https://zhuweixiong22.github.io/2021/12/31/string-stringbuffer-%E5%92%8C-stringbuilder-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88-string-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</guid>
       <description>可变性
 简单的来说：String 类中使用 final 关键字修饰字符数组来保存字符串，所以String 对象是不可变的。
 public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence {  private final char value[]; 	//... }  🐛 修正 ： 我们知道被 final 关键字修饰的类不能被继承，修饰的方法不能被重写，修饰的变量是基本数据类型则值不能改变，修饰的变量是引用类型则不能再指向其他对象。因此，final 关键字修饰的数组保存字符串并不是 String 不可变的根本原因，因为这个数组保存的字符串是可变的（final 修饰引用类型变量的情况）。
@@ -32,10 +32,10 @@ String 真正不可变有下面几点原因：
     
     <item>
       <title>引用拷贝 浅拷贝 和 深拷贝</title>
-      <link>https://D1-novo.github.io/2021/12/30/%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D-%E6%B5%85%E6%8B%B7%E8%B4%9D-%E5%92%8C-%E6%B7%B1%E6%8B%B7%E8%B4%9D/</link>
+      <link>https://zhuweixiong22.github.io/2021/12/30/%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D-%E6%B5%85%E6%8B%B7%E8%B4%9D-%E5%92%8C-%E6%B7%B1%E6%8B%B7%E8%B4%9D/</link>
       <pubDate>Thu, 30 Dec 2021 17:16:17 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/2021/12/30/%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D-%E6%B5%85%E6%8B%B7%E8%B4%9D-%E5%92%8C-%E6%B7%B1%E6%8B%B7%E8%B4%9D/</guid>
+      <guid>https://zhuweixiong22.github.io/2021/12/30/%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D-%E6%B5%85%E6%8B%B7%E8%B4%9D-%E5%92%8C-%E6%B7%B1%E6%8B%B7%E8%B4%9D/</guid>
       <description>**引用拷贝：**引用拷贝，就是拷贝引用地址。两个不同的引用指向同一个对象。
   浅拷贝：浅拷贝会在堆上创建一个新的对象（区别于引用拷贝的一点）
   如果属性是基本类型(int,double,long,boolean等)，拷贝的就是基本类型的值
@@ -50,33 +50,28 @@ String 真正不可变有下面几点原因：
     
     <item>
       <title>Java 对象序列化/反序列化</title>
-      <link>https://D1-novo.github.io/2021/12/24/java-%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+      <link>https://zhuweixiong22.github.io/2021/12/24/java-%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
       <pubDate>Fri, 24 Dec 2021 17:16:17 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/2021/12/24/java-%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
-      <description>概述 Java 提供了一种对象序列化的机制。用一个字节序列可以表示一个对象，该字节序列包含该对象的数据、对象的类型和对象中存储的属性等信息。字节序列写出到文件之后，相当于文件中持久保存了一个对象的信息。
+      <guid>https://zhuweixiong22.github.io/2021/12/24/java-%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+      <description>概述 ObjectOutputStream类  构造方法 序列化操作   ObjectInputStream类  构造方法 反序列化操作1 反序列化操作2   案例：序列化集合  案例分析 案例实现    概述 Java 提供了一种对象序列化的机制。用一个字节序列可以表示一个对象，该字节序列包含该对象的数据、对象的类型和对象中存储的属性等信息。字节序列写出到文件之后，相当于文件中持久保存了一个对象的信息。
 反之，该字节序列还可以从文件中读取回来，重构对象，对它进行反序列化。对象的数据、对象的类型和对象中存储的数据信息，都可以用来在内存中创建对象。
 简单来说：
  序列化： 将数据结构或对象转换成二进制字节流的过程 反序列化：将在序列化过程中所生成的二进制字节流转换成数据结构或者对象的过程  对于 Java 这种面向对象编程语言来说，我们序列化的都是对象（Object）也就是实例化后的类(Class)，但是在 C++这种半面向对象的语言中，struct(结构体)定义的是数据结构类型，而 class 对应的是对象类型。
 维基百科：
  序列化（serialization）在计算机科学的数据处理中，是指将数据结构或对象状态转换成可取用格式（例如存成文件，存于缓冲，或经由网络中发送），以留待后续在相同或另一台计算机环境中，能恢复原先状态的过程。依照序列化格式重新获取字节的结果时，可以利用它来产生与原始对象相同语义的副本。对于许多对象，像是使用大量引用的复杂对象，这种序列化重建的过程并不容易。面向对象中的对象序列化，并不概括之前原始对象所关系的函数。这种过程也称为对象编组（marshalling）。从一系列字节提取数据结构的反向操作，是反序列化（也称为解编组、deserialization、unmarshalling）。
  综上：序列化的主要目的是通过网络传输对象或者说是将对象存储到文件系统、数据库、内存中。
-ObjectOutputStream类 java.io.ObjectOutputStream  类，将Java对象的原始数据类型写出到文件,实现对象的持久存储。
-构造方法  public ObjectOutputStream(OutputStream out) ： 创建一个指定OutputStream的ObjectOutputStream。  构造举例，代码如下：
-FileOutputStream fileOut = new FileOutputStream(&amp;#34;employee.txt&amp;#34;); ObjectOutputStream out = new ObjectOutputStream(fileOut); 序列化操作  一个对象要想序列化，必须满足两个条件:    该类必须实现java.io.Serializable  接口，Serializable 是一个标记接口，不实现此接口的类将不会使任何状态序列化或反序列化，会抛出NotSerializableException 。
-  该类的所有属性必须是可序列化的。如果有一个属性不需要可序列化的，则该属性必须注明是瞬态的，使用transient 关键字修饰。
-  被static修饰的属性也不会被序列化(因为static属性不属于对象)
- 注意：
-  transient 只能修饰变量，不能修饰类和方法。
-  transient 修饰的变量，在反序列化后变量值将会被置成类型的默认值。例如，如果是修饰 int 类型，那么反序列后结果就是 0。</description>
+ObjectOutputStream类 java.io.ObjectOutputStream 类，将Java对象的原始数据类型写出到文件,实现对象的持久存储。
+构造方法  public ObjectOutputStream(OutputStream out)： 创建一个指定OutputStream的ObjectOutputStream。  构造举例，代码如下：
+FileOutputStream fileOut = new FileOutputStream(&amp;#34;employee.txt&amp;#34;); ObjectOutputStream out = new ObjectOutputStream(fileOut); 序列化操作  一个对象要想序列化，必须满足两个条件:    该类必须实现java.</description>
     </item>
     
     <item>
       <title>思维</title>
-      <link>https://D1-novo.github.io/2021/12/05/%E6%80%9D%E7%BB%B4/</link>
+      <link>https://zhuweixiong22.github.io/2021/12/05/%E6%80%9D%E7%BB%B4/</link>
       <pubDate>Sun, 05 Dec 2021 17:16:17 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/2021/12/05/%E6%80%9D%E7%BB%B4/</guid>
+      <guid>https://zhuweixiong22.github.io/2021/12/05/%E6%80%9D%E7%BB%B4/</guid>
       <description>对数器
 二分查找  在一个有序数组中，找到某个数是否存在 在一个有序(升序)数组中，找 &amp;gt;= 某个数最左侧的位置 在一个有序(升序)数组中，找 &amp;lt;= 某个数最右侧的位置 局部最小值问题  局部最小值问题 二分不一定要有序：数据状况特殊，问题特殊，只要能找出数据的排他性，有一半数据肯定有，另一半数据不确定，那就可以砍一半用二分。
 给出一个无序且相邻两个数不相等的数组，找出一个局部最小数（找谷底）
@@ -95,10 +90,10 @@ FileOutputStream fileOut = new FileOutputStream(&amp;#34;employee.txt&amp;#34;);
     
     <item>
       <title>思维导图</title>
-      <link>https://D1-novo.github.io/2021/12/05/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
+      <link>https://zhuweixiong22.github.io/2021/12/05/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
       <pubDate>Sun, 05 Dec 2021 17:16:17 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/2021/12/05/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
+      <guid>https://zhuweixiong22.github.io/2021/12/05/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
       <description>Java   Java I/O: https://www.processon.com/view/6128e2fc079129550eeaaff1?fromnew=1
   Java 8/反射: https://www.processon.com/view/612f95677d9c081c75321834?fromnew=1
   Web基础   MySQL: https://www.processon.com/view/613227d9f346fb07155d14fa?fromnew=1
@@ -118,10 +113,10 @@ FileOutputStream fileOut = new FileOutputStream(&amp;#34;employee.txt&amp;#34;);
     
     <item>
       <title>KMP 算法</title>
-      <link>https://D1-novo.github.io/2021/12/04/kmp-%E7%AE%97%E6%B3%95/</link>
+      <link>https://zhuweixiong22.github.io/2021/12/04/kmp-%E7%AE%97%E6%B3%95/</link>
       <pubDate>Sat, 04 Dec 2021 17:16:17 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/2021/12/04/kmp-%E7%AE%97%E6%B3%95/</guid>
+      <guid>https://zhuweixiong22.github.io/2021/12/04/kmp-%E7%AE%97%E6%B3%95/</guid>
       <description>基本概念：   非平凡前缀：包含首位字符但不包含末位字符的子串组合。
   非平凡后缀：包含末位字符但不包含首位字符的子串组合。
   next数组定义(又称部分匹配表)：模式串T j指针的变化(即当主串与模式串的某一位字符不匹配时，模式串要回退的位置)
@@ -141,10 +136,10 @@ FileOutputStream fileOut = new FileOutputStream(&amp;#34;employee.txt&amp;#34;);
     
     <item>
       <title>JavaSE 笔记</title>
-      <link>https://D1-novo.github.io/2021/12/03/javase-%E7%AC%94%E8%AE%B0/</link>
+      <link>https://zhuweixiong22.github.io/2021/12/03/javase-%E7%AC%94%E8%AE%B0/</link>
       <pubDate>Fri, 03 Dec 2021 17:16:17 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/2021/12/03/javase-%E7%AC%94%E8%AE%B0/</guid>
+      <guid>https://zhuweixiong22.github.io/2021/12/03/javase-%E7%AC%94%E8%AE%B0/</guid>
       <description>基本数据类型 1.小数默认的数据类型为double类型 2.数据类型转换 boolean不能发生数据类型转换
 float范围大于long，但是字节数比long小
 赋值时，级别低赋值给级别高的即数据范围从小到大（与它的字节数无关）的会进行自动类型转换（隐式），不报错
@@ -157,39 +152,30 @@ int num1 = 4； int num2 = 5； byte a = 4；//正确 编译器自动补全 byte
     </item>
     
     <item>
-      <title>About</title>
-      <link>https://D1-novo.github.io/page/about/</link>
-      <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://D1-novo.github.io/page/about/</guid>
-      <description>We know that an improvement is a themeless diploma. Those coughs are nothing more than distributors. Postiche authorizations show us how poisons can be organisations. The thumb of a tsunami becomes a widest downtown.</description>
-    </item>
-    
-    <item>
       <title>Extending this logic</title>
-      <link>https://D1-novo.github.io/2018/02/09/extending-this-logic/</link>
+      <link>https://zhuweixiong22.github.io/2018/02/09/extending-this-logic/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/2018/02/09/extending-this-logic/</guid>
+      <guid>https://zhuweixiong22.github.io/2018/02/09/extending-this-logic/</guid>
       <description>The quiets could be said to resemble terete lambs. Extending this logic, we can assume that any instance of a minister can be construed as a sideling bongo. Their leaf was, in this moment, a coccoid noodle. In modern times a noise is a barge&amp;rsquo;s calendar. A stative sing&amp;rsquo;s help comes with it the thought that the sluicing crack is a sock. It&amp;rsquo;s an undeniable fact, really; a feast sees a half-sister as a chewy grade.</description>
     </item>
     
     <item>
       <title>Site notice</title>
-      <link>https://D1-novo.github.io/page/site-notice/</link>
+      <link>https://zhuweixiong22.github.io/page/site-notice/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/page/site-notice/</guid>
+      <guid>https://zhuweixiong22.github.io/page/site-notice/</guid>
       <description>Walruses Those drizzles are nothing more than mothers. Dewlapped laborers show us how flowers can be entrances. Nowhere is it disputed that the candle is a banker. The walruses could be said to resemble malar floors.
 Radio Those facts are nothing more than velvets. Lambdoid dimes show us how anthonies can be trombones. An intense bookcase is a bookcase of the mind. The literature would have us believe that a bastioned copy is not but a radio.</description>
     </item>
     
     <item>
       <title>The actor is a gander</title>
-      <link>https://D1-novo.github.io/2018/02/09/the-actor-is-a-gander/</link>
+      <link>https://zhuweixiong22.github.io/2018/02/09/the-actor-is-a-gander/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/2018/02/09/the-actor-is-a-gander/</guid>
+      <guid>https://zhuweixiong22.github.io/2018/02/09/the-actor-is-a-gander/</guid>
       <description>However, a frostless stop is a stream of the mind. The actor is a gander. A garni person without gorillas is truly a vest of scentless plots.
 Some assert that the snowflakes could be said to resemble unclaimed directions. The sponge is a boat. Authors often misinterpret the inventory as an absurd sock, when in actuality it feels more like a plumbous earth.
 The first enarched tune is, in its own way, a visitor.</description>
@@ -197,20 +183,20 @@ The first enarched tune is, in its own way, a visitor.</description>
     
     <item>
       <title>The beach is a push</title>
-      <link>https://D1-novo.github.io/2018/02/09/the-beach-is-a-push/</link>
+      <link>https://zhuweixiong22.github.io/2018/02/09/the-beach-is-a-push/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/2018/02/09/the-beach-is-a-push/</guid>
+      <guid>https://zhuweixiong22.github.io/2018/02/09/the-beach-is-a-push/</guid>
       <description>Gainly stops show us how mother-in-laws can be drizzles. Some assert that the fahrenheit is a mascara. The crosswise idea reveals itself as a baddish ink to those who look. A grasping interest without kitties is truly a crocus of hopeful nets. The developments could be said to resemble farfetched triangles. A mind of the fender is assumed to be a cornute radiator.
 In ancient times a whapping napkin&amp;#39;s alcohol comes with it the thought that the weldless industry is a quill.</description>
     </item>
     
     <item>
       <title>B Plain Markdown Post</title>
-      <link>https://D1-novo.github.io/2017/12/30/b-plain-markdown-post/</link>
+      <link>https://zhuweixiong22.github.io/2017/12/30/b-plain-markdown-post/</link>
       <pubDate>Sat, 30 Dec 2017 21:49:57 -0700</pubDate>
       
-      <guid>https://D1-novo.github.io/2017/12/30/b-plain-markdown-post/</guid>
+      <guid>https://zhuweixiong22.github.io/2017/12/30/b-plain-markdown-post/</guid>
       <description>[TOC]
 数据库基础 数据库是学习JavaWeb的一个前置，只有了解了数据库的操作和使用，我们才能更好地组织和管理网站应用产生的数据。
 什么是数据库 数据库是数据管理的有效技术，是由一批数据构成的有序集合，这些数据被存放在结构化的数据表里。数据表之间相互关联，反映客观事物间的本质联系。数据库能有效地帮助一个组织或企业科学地管理各类信息资源。简而言之，我们的数据可以交给数据库来帮助我们进行管理，同时数据库能够为我们提供高效的访问性能。
@@ -238,38 +224,38 @@ MySQL就是一种关系型数据库，通过使用关系型数据库，我们就
     
     <item>
       <title>A Plain Markdown Post</title>
-      <link>https://D1-novo.github.io/2016/12/30/a-plain-markdown-post/</link>
+      <link>https://zhuweixiong22.github.io/2016/12/30/a-plain-markdown-post/</link>
       <pubDate>Fri, 30 Dec 2016 21:49:57 -0700</pubDate>
       
-      <guid>https://D1-novo.github.io/2016/12/30/a-plain-markdown-post/</guid>
+      <guid>https://zhuweixiong22.github.io/2016/12/30/a-plain-markdown-post/</guid>
       <description>This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
  You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.  There are many differences in syntax between Blackfriday&amp;rsquo;s Markdown and Pandoc&amp;rsquo;s Markdown.</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>https://D1-novo.github.io/about/</link>
+      <link>https://zhuweixiong22.github.io/about/</link>
       <pubDate>Thu, 05 May 2016 21:48:51 -0700</pubDate>
       
-      <guid>https://D1-novo.github.io/about/</guid>
+      <guid>https://zhuweixiong22.github.io/about/</guid>
       <description>This is a 测&amp;quot;hello world&amp;quot; example website for the blogdown package. The theme was forked from @jrutheiser/hugo-lithium-theme and modified by Yihui Xie.</description>
     </item>
     
     <item>
       <title>Lorem Ipsum</title>
-      <link>https://D1-novo.github.io/2015/01/01/lorem-ipsum/</link>
+      <link>https://zhuweixiong22.github.io/2015/01/01/lorem-ipsum/</link>
       <pubDate>Thu, 01 Jan 2015 13:09:13 -0600</pubDate>
       
-      <guid>https://D1-novo.github.io/2015/01/01/lorem-ipsum/</guid>
+      <guid>https://zhuweixiong22.github.io/2015/01/01/lorem-ipsum/</guid>
       <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</description>
     </item>
     
     <item>
       <title></title>
-      <link>https://D1-novo.github.io/1/01/01/</link>
+      <link>https://zhuweixiong22.github.io/1/01/01/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/1/01/01/</guid>
+      <guid>https://zhuweixiong22.github.io/1/01/01/</guid>
       <description>回溯时的可变参数问题
 到底什么时候传index什么时候传path
 其实传index和path的目的都是一样的
@@ -282,10 +268,10 @@ private List&amp;lt;List&amp;lt;Integer&amp;gt;&amp;gt; res = new ArrayList&amp;
     
     <item>
       <title>LeetCode142.环形链表II</title>
-      <link>https://D1-novo.github.io/1/01/01/leetcode142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8ii/</link>
+      <link>https://zhuweixiong22.github.io/1/01/01/leetcode142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8ii/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/1/01/01/leetcode142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8ii/</guid>
+      <guid>https://zhuweixiong22.github.io/1/01/01/leetcode142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8ii/</guid>
       <description>142. 环形链表 II 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。
 不允许修改 链表。
@@ -298,10 +284,10 @@ private List&amp;lt;List&amp;lt;Integer&amp;gt;&amp;gt; res = new ArrayList&amp;
     
     <item>
       <title>LeetCode148.排序链表</title>
-      <link>https://D1-novo.github.io/1/01/01/leetcode148.%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</link>
+      <link>https://zhuweixiong22.github.io/1/01/01/leetcode148.%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/1/01/01/leetcode148.%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</guid>
+      <guid>https://zhuweixiong22.github.io/1/01/01/leetcode148.%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</guid>
       <description>148. 排序链表 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
 示例 1：
 输入：head = [4,2,1,3]输出：[1,2,3,4] 示例 2：
@@ -322,10 +308,10 @@ private List&amp;lt;List&amp;lt;Integer&amp;gt;&amp;gt; res = new ArrayList&amp;
     
     <item>
       <title>LeetCode160.相交链表</title>
-      <link>https://D1-novo.github.io/1/01/01/leetcode160.%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</link>
+      <link>https://zhuweixiong22.github.io/1/01/01/leetcode160.%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/1/01/01/leetcode160.%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</guid>
+      <guid>https://zhuweixiong22.github.io/1/01/01/leetcode160.%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</guid>
       <description>160. 相交链表 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。
 图示两个链表在节点 c1 开始相交**：**
 题目数据 保证 整个链式结构中不存在环。
@@ -337,10 +323,10 @@ private List&amp;lt;List&amp;lt;Integer&amp;gt;&amp;gt; res = new ArrayList&amp;
     
     <item>
       <title>Redis 综合</title>
-      <link>https://D1-novo.github.io/1/01/01/redis-%E7%BB%BC%E5%90%88/</link>
+      <link>https://zhuweixiong22.github.io/1/01/01/redis-%E7%BB%BC%E5%90%88/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/1/01/01/redis-%E7%BB%BC%E5%90%88/</guid>
+      <guid>https://zhuweixiong22.github.io/1/01/01/redis-%E7%BB%BC%E5%90%88/</guid>
       <description>Redis 基础 概念 数据类型 通用命令 Jedis Redis 高级 持久化 持久化简介 RDB （Redis DataBase）
 save指令   命令
 save   手动指定一次保存操作
@@ -367,10 +353,10 @@ bgsave指令工作原理</description>
     
     <item>
       <title>关于 @ResponseBody 的那些事</title>
-      <link>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E-responsebody-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</link>
+      <link>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E-responsebody-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E-responsebody-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</guid>
+      <guid>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E-responsebody-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</guid>
       <description>转载于：https://blog.csdn.net/u014534808/article/details/116859496
 开心编码 事情是这样的，我在用SpringBoot框架搭建的项目上写了一个新增用户的接口，接口地址是/v1/user/test，代码如下所示（demo版，非生产代码），简单到不能再简单的一个接口，像这样的接口我都记不清自己已经写了多少个了。
 @Controller public class TestRespController { 	//新增用户的接口  @RequestMapping(&amp;#34;/v1/user/test&amp;#34;)  public User addUser(String userName, String password) {  User user = new User();  user.setUserName(userName);  user.setPassword(password);  return user;  } } 接口写好之后，我没有多想，就启动项目开始调试代码，我熟练的在chrome浏览器上输入了http://localhost:8080/v1/user/test这个地址，然后点击回车，没想到的是页面上提示了一个404的错误。
@@ -384,10 +370,10 @@ bgsave指令工作原理</description>
     
     <item>
       <title>关于 Redis 事务是否满足原子性</title>
-      <link>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E-redis-%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%AD%90%E6%80%A7/</link>
+      <link>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E-redis-%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%AD%90%E6%80%A7/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E-redis-%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%AD%90%E6%80%A7/</guid>
+      <guid>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E-redis-%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%AD%90%E6%80%A7/</guid>
       <description>个人理解这个问题需要分两种情况讨论
  multi开启事务后命令队列语法有错误或取消事务discard multi开启事务后命令队列运行错误  第一种情况 可以看到开启事务后输入一个错误语法命令get name zhangsan后立即显示错误提示了，再执行exec自然也是不行的，所有命令都不会执行。
 discard的情况就不用说了，取消事务。
@@ -399,10 +385,10 @@ set name后用了list的指令，可以看到命令执行后，能够正确运�
     
     <item>
       <title>关于使用 SpringDataRedis 配置序列化方式时报错</title>
-      <link>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8-springdataredis-%E9%85%8D%E7%BD%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F%E6%97%B6%E6%8A%A5%E9%94%99/</link>
+      <link>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8-springdataredis-%E9%85%8D%E7%BD%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F%E6%97%B6%E6%8A%A5%E9%94%99/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8-springdataredis-%E9%85%8D%E7%BD%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F%E6%97%B6%E6%8A%A5%E9%94%99/</guid>
+      <guid>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8-springdataredis-%E9%85%8D%E7%BD%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F%E6%97%B6%E6%8A%A5%E9%94%99/</guid>
       <description>SpringBoot下RedisConfig配置
 /** * @author novo * @date 2022/1/2-22:13 */ @Configuration public class RedisConfig {  @Bean  public RedisTemplate&amp;lt;String,Object&amp;gt; redisTemplate(LettuceConnectionFactory lettuceConnectionFactory){  RedisTemplate&amp;lt;String, Object&amp;gt; redisTemplate = new RedisTemplate&amp;lt;&amp;gt;();  //为string类型的key设置序列化  redisTemplate.setKeySerializer(new StringRedisSerializer());  //为string类型的value设置序列化  redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());  //redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer(Object.class));  //为hash设置序列化  redisTemplate.setHashKeySerializer(new StringRedisSerializer());  redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());  // 设置 RedisConnection 工厂。 它就是实现多种 Java Redis 客户端接入的工厂  redisTemplate.setConnectionFactory(lettuceConnectionFactory);  return redisTemplate;  } } 报错信息
 org.springframework.data.redis.serializer.SerializationException: Could not read JSON: Cannot construct instance of `com.</description>
@@ -410,10 +396,10 @@ org.springframework.data.redis.serializer.SerializationException: Could not read
     
     <item>
       <title>移位运算符 val / 2 != val &gt;&gt; 1 的情况</title>
-      <link>https://D1-novo.github.io/1/01/01/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6-val-/-2-val-1-%E7%9A%84%E6%83%85%E5%86%B5/</link>
+      <link>https://zhuweixiong22.github.io/1/01/01/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6-val-/-2-val-1-%E7%9A%84%E6%83%85%E5%86%B5/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/1/01/01/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6-val-/-2-val-1-%E7%9A%84%E6%83%85%E5%86%B5/</guid>
+      <guid>https://zhuweixiong22.github.io/1/01/01/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6-val-/-2-val-1-%E7%9A%84%E6%83%85%E5%86%B5/</guid>
       <description>在写堆排序用移位运算的时候发现执行报了个数组索引越界
 打印了下才发现 -1 &amp;raquo; 1 并不等于0而是等于1
  原码 补码 右移一位 结果（原码） -1 = 1000 0001， 1111 1111， 1111 1111 -1 -2 = 1000 0010， 1111 1110， 1111 1111 -1 -3 = 1000 0011， 1111 1101， 1111 1110 -2 -4 = 1000 0100， 1111 1100， 1111 1110 -2 -5 = 1000 0101， 1111 1011， 1111 1101 -3 -6 = 1000 0110， 1111 1010， 1111 1101 -3 对于 val / 2 != val &amp;raquo; 1的原因是：val为负数且为奇数或者正数移位数超过类型最大位数溢出为负。</description>

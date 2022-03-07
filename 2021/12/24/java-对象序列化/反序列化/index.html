@@ -10,12 +10,10 @@
 <meta property="og:title" content="Java 对象序列化/反序列化 - A Hugo website">
 
 
-  <link href='https://D1-novo.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='https://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
 
 
 
-  
-  <meta property="description" content=" ">
   
 
 
@@ -68,7 +66,7 @@
 
   <article class="article">
     
-    <span class="article-duration">2 min read</span>
+    <span class="article-duration">3 min read</span>
     
 
     <h1 class="article-title">Java 对象序列化/反序列化</h1>
@@ -78,15 +76,41 @@
     
 
     <div class="article-content">
-      <h2 id="概述">概述</h2>
-<p>Java 提供了一种对象<strong>序列化</strong>的机制。用一个字节序列可以表示一个对象，该字节序列包含该<code>对象的数据</code>、<code>对象的类型</code>和<code>对象中存储的属性</code>等信息。字节序列写出到文件之后，相当于文件中<strong>持久保存</strong>了一个对象的信息。</p>
+      <ul>
+<li><a href="#%E6%A6%82%E8%BF%B0">概述</a></li>
+<li><a href="#objectoutputstream%E7%B1%BB">ObjectOutputStream类</a>
+<ul>
+<li><a href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95">构造方法</a></li>
+<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96%E6%93%8D%E4%BD%9C">序列化操作</a></li>
+</ul>
+</li>
+<li><a href="#objectinputstream%E7%B1%BB">ObjectInputStream类</a>
+<ul>
+<li><a href="#%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95-1">构造方法</a></li>
+<li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%93%8D%E4%BD%9C1">反序列化操作1</a></li>
+<li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%93%8D%E4%BD%9C2">反序列化操作2</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A1%88%E4%BE%8B%E5%BA%8F%E5%88%97%E5%8C%96%E9%9B%86%E5%90%88">案例：序列化集合</a>
+<ul>
+<li><a href="#%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90">案例分析</a></li>
+<li><a href="#%E6%A1%88%E4%BE%8B%E5%AE%9E%E7%8E%B0">案例实现</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="概述">概述</h2>
+<p>Java
+提供了一种对象<strong>序列化</strong>的机制。用一个字节序列可以表示一个对象，该字节序列包含该<code>对象的数据</code>、<code>对象的类型</code>和<code>对象中存储的属性</code>等信息。字节序列写出到文件之后，相当于文件中<strong>持久保存</strong>了一个对象的信息。</p>
 <p>反之，该字节序列还可以从文件中读取回来，重构对象，对它进行<strong>反序列化</strong>。<code>对象的数据</code>、<code>对象的类型</code>和<code>对象中存储的数据</code>信息，都可以用来在内存中创建对象。</p>
 <p>简单来说：</p>
 <ul>
 <li><strong>序列化</strong>： 将数据结构或对象转换成二进制字节流的过程</li>
 <li><strong>反序列化</strong>：将在序列化过程中所生成的二进制字节流转换成数据结构或者对象的过程</li>
 </ul>
-<p>对于 Java 这种面向对象编程语言来说，我们序列化的都是对象（Object）也就是实例化后的类(Class)，但是在 C++这种半面向对象的语言中，struct(结构体)定义的是数据结构类型，而 class 对应的是对象类型。</p>
+<p>对于 Java
+这种面向对象编程语言来说，我们序列化的都是对象（Object）也就是实例化后的类(Class)，但是在
+C++这种半面向对象的语言中，struct(结构体)定义的是数据结构类型，而 class
+对应的是对象类型。</p>
 <p>维基百科：</p>
 <blockquote>
 <p><strong>序列化</strong>（serialization）在计算机科学的数据处理中，是指将数据结构或对象状态转换成可取用格式（例如存成文件，存于缓冲，或经由网络中发送），以留待后续在相同或另一台计算机环境中，能恢复原先状态的过程。依照序列化格式重新获取字节的结果时，可以利用它来产生与原始对象相同语义的副本。对于许多对象，像是使用大量引用的复杂对象，这种序列化重建的过程并不容易。面向对象中的对象序列化，并不概括之前原始对象所关系的函数。这种过程也称为对象编组（marshalling）。从一系列字节提取数据结构的反向操作，是反序列化（也称为解编组、deserialization、unmarshalling）。</p>
@@ -95,10 +119,12 @@
 <p><img src="https://gitee.com/iamnovo/pic/raw/master/images/2_zhuanhuan.jpg" alt=""></p>
 <p><img src="https://gitee.com/iamnovo/pic/raw/master/images/a478c74d-2c48-40ae-9374-87aacf05188c.png" alt="img"></p>
 <h2 id="objectoutputstream类">ObjectOutputStream类</h2>
-<p><code>java.io.ObjectOutputStream </code> 类，将Java对象的原始数据类型写出到文件,实现对象的持久存储。</p>
+<p><code>java.io.ObjectOutputStream</code>
+类，将Java对象的原始数据类型写出到文件,实现对象的持久存储。</p>
 <h3 id="构造方法">构造方法</h3>
 <ul>
-<li><code>public ObjectOutputStream(OutputStream out) </code>： 创建一个指定OutputStream的ObjectOutputStream。</li>
+<li><code>public ObjectOutputStream(OutputStream out)</code>：
+创建一个指定OutputStream的ObjectOutputStream。</li>
 </ul>
 <p>构造举例，代码如下：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>FileOutputStream fileOut <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;employee.txt&#34;</span><span style="color:#f92672">);</span>
@@ -109,10 +135,13 @@
 </ol>
 <ul>
 <li>
-<p>该类必须实现<code>java.io.Serializable </code> 接口，<code>Serializable</code> 是一个标记接口，不实现此接口的类将不会使任何状态序列化或反序列化，会抛出<code>NotSerializableException</code> 。</p>
+<p>该类必须实现<code>java.io.Serializable</code> 接口，<code>Serializable</code>
+是一个标记接口，不实现此接口的类将不会使任何状态序列化或反序列化，会抛出<code>NotSerializableException</code>
+。</p>
 </li>
 <li>
-<p>该类的所有属性必须是可序列化的。如果有一个属性<strong>不需要可序列化</strong>的，则该属性必须注明是<strong>瞬态</strong>的，使用<code>transient</code> 关键字修饰。</p>
+<p>该类的所有属性必须是可序列化的。如果有一个属性<strong>不需要可序列化</strong>的，则该属性必须注明是<strong>瞬态</strong>的，使用<code>transient</code>
+关键字修饰。</p>
 </li>
 <li>
 <p>被<code>static</code>修饰的属性也不会被序列化(因为<code>static</code>属性不属于对象)</p>
@@ -123,7 +152,9 @@
 <p><code>transient</code> 只能修饰变量，不能修饰类和方法。</p>
 </li>
 <li>
-<p><code>transient</code> 修饰的变量，在反序列化后变量值将会被置成类型的默认值。例如，如果是修饰 <code>int</code> 类型，那么反序列后结果就是 <code>0</code>。</p>
+<p><code>transient</code>
+修饰的变量，在反序列化后变量值将会被置成类型的默认值。例如，如果是修饰
+<code>int</code> 类型，那么反序列后结果就是 <code>0</code>。</p>
 </li>
 </ul>
 </blockquote>
@@ -134,7 +165,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> String address<span style="color:#f92672">;</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">transient</span> <span style="color:#66d9ef">int</span> age<span style="color:#f92672">;</span> <span style="color:#75715e">// transient瞬态修饰成员,不会被序列化
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">addressCheck</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>      	System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Address  check : &#34;</span> <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; -- &#34;</span> <span style="color:#f92672">+</span> address<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Address  check : &#34;</span> <span style="color:#f92672">+</span> name <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; -- &#34;</span> <span style="color:#f92672">+</span> address<span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div><p>2.写出对象方法</p>
@@ -142,24 +173,24 @@
 <li><code>public final void writeObject (Object obj)</code> : 将指定的对象写出。</li>
 </ul>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SerializeDemo</span><span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>   	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String <span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>   <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>    	Employee e <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Employee<span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>    	e<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;zhangsan&#34;</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    	e<span style="color:#f92672">.</span><span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;beiqinglu&#34;</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>    	e<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span> 
-</span></span><span style="display:flex;"><span>    	<span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>      		<span style="color:#75715e">// 创建序列化流对象
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String <span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>   <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        Employee e <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Employee<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        e<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;zhangsan&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        e<span style="color:#f92672">.</span><span style="color:#a6e22e">address</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;beiqinglu&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>        e<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span> <span style="color:#f92672">=</span> 20<span style="color:#f92672">;</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 创建序列化流对象
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>          ObjectOutputStream out <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectOutputStream<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;employee.txt&#34;</span><span style="color:#f92672">));</span>
-</span></span><span style="display:flex;"><span>        	<span style="color:#75715e">// 写出对象
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        	out<span style="color:#f92672">.</span><span style="color:#a6e22e">writeObject</span><span style="color:#f92672">(</span>e<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>        	<span style="color:#75715e">// 释放资源
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        	out<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>        	fileOut<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>        	System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Serialized data is saved&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">// 姓名，地址被序列化，年龄没有被序列化。
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 写出对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            out<span style="color:#f92672">.</span><span style="color:#a6e22e">writeObject</span><span style="color:#f92672">(</span>e<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 释放资源
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            out<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            fileOut<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Serialized data is saved&#34;</span><span style="color:#f92672">);</span> <span style="color:#75715e">// 姓名，地址被序列化，年龄没有被序列化。
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#f92672">}</span> <span style="color:#66d9ef">catch</span><span style="color:#f92672">(</span>IOException i<span style="color:#f92672">)</span>   <span style="color:#f92672">{</span>
 </span></span><span style="display:flex;"><span>            i<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>   	<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span>输出结果<span style="color:#960050;background-color:#1e0010">：</span>
 </span></span><span style="display:flex;"><span>Serialized data is saved
@@ -167,7 +198,8 @@
 <p><code>ObjectInputStream</code>反序列化流，将之前使用<code>ObjectOutputStream</code>序列化的原始数据恢复为对象。</p>
 <h3 id="构造方法-1">构造方法</h3>
 <ul>
-<li><code>public ObjectInputStream(InputStream in) </code>： 创建一个指定InputStream的ObjectInputStream。</li>
+<li><code>public ObjectInputStream(InputStream in)</code>：
+创建一个指定InputStream的ObjectInputStream。</li>
 </ul>
 <h3 id="反序列化操作1">反序列化操作1</h3>
 <p>如果能找到一个对象的class文件，我们可以进行反序列化操作，调用<code>ObjectInputStream</code>读取对象的方法：</p>
@@ -177,7 +209,7 @@
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DeserializeDemo</span> <span style="color:#f92672">{</span>
 </span></span><span style="display:flex;"><span>   <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String <span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span>   <span style="color:#f92672">{</span>
 </span></span><span style="display:flex;"><span>        Employee e <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>		
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span> <span style="color:#f92672">{</span>       
 </span></span><span style="display:flex;"><span>             <span style="color:#75715e">// 创建反序列化流
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             FileInputStream fileIn <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;employee.txt&#34;</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>             ObjectInputStream in <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectInputStream<span style="color:#f92672">(</span>fileIn<span style="color:#f92672">);</span>
@@ -191,26 +223,29 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             i<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
 </span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span><span style="color:#66d9ef">catch</span><span style="color:#f92672">(</span>ClassNotFoundException c<span style="color:#f92672">)</span>  <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>        	<span style="color:#75715e">// 捕获类找不到异常
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 捕获类找不到异常
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>             System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Employee class not found&#34;</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>             c<span style="color:#f92672">.</span><span style="color:#a6e22e">printStackTrace</span><span style="color:#f92672">();</span>
 </span></span><span style="display:flex;"><span>             <span style="color:#66d9ef">return</span><span style="color:#f92672">;</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 无异常,直接打印输出
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Name: &#34;</span> <span style="color:#f92672">+</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">);</span>	<span style="color:#75715e">// zhangsan
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Name: &#34;</span> <span style="color:#f92672">+</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">name</span><span style="color:#f92672">);</span>  <span style="color:#75715e">// zhangsan
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Address: &#34;</span> <span style="color:#f92672">+</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">address</span><span style="color:#f92672">);</span> <span style="color:#75715e">// beiqinglu
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;age: &#34;</span> <span style="color:#f92672">+</span> e<span style="color:#f92672">.</span><span style="color:#a6e22e">age</span><span style="color:#f92672">);</span> <span style="color:#75715e">// 0
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
-</span></span></code></pre></div><p><strong>对于JVM可以反序列化对象，它必须是能够找到class文件的类。如果找不到该类的class文件，则抛出一个 <code>ClassNotFoundException</code> 异常。</strong></p>
-<h3 id="反序列化操作2"><strong>反序列化操作2</strong></h3>
+</span></span></code></pre></div><p><strong>对于JVM可以反序列化对象，它必须是能够找到class文件的类。如果找不到该类的class文件，则抛出一个
+<code>ClassNotFoundException</code> 异常。</strong></p>
+<h3 id="反序列化操作2">反序列化操作2</h3>
 <p>**另外，当JVM反序列化对象时，能找到class文件，但是class文件在序列化对象之后发生了修改，那么反序列化操作也会失败，抛出一个<code>InvalidClassException</code>异常。**发生这个异常的原因如下：</p>
 <ul>
 <li>该类的序列版本号与从流中读取的类描述符的版本号不匹配</li>
 <li>该类包含未知数据类型</li>
 <li>该类没有可访问的无参数构造方法</li>
 </ul>
-<p><code>Serializable</code> 接口给需要序列化的类，提供了一个序列版本号。<code>serialVersionUID</code> 该版本号的目的在于验证序列化的对象和对应类是否版本匹配。</p>
+<p><code>Serializable</code>
+接口给需要序列化的类，提供了一个序列版本号。<code>serialVersionUID</code>
+该版本号的目的在于验证序列化的对象和对应类是否版本匹配。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Employee</span> <span style="color:#66d9ef">implements</span> java<span style="color:#f92672">.</span><span style="color:#a6e22e">io</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Serializable</span> <span style="color:#f92672">{</span>
 </span></span><span style="display:flex;"><span>     <span style="color:#75715e">// 加入序列版本号
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>     <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> <span style="color:#66d9ef">long</span> serialVersionUID <span style="color:#f92672">=</span> 1L<span style="color:#f92672">;</span>
@@ -237,65 +272,42 @@
 </ol>
 <h3 id="案例实现">案例实现</h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SerTest</span> <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 创建 学生对象
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		Student student <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;老王&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;laow&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>		Student student2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;老张&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;laoz&#34;</span><span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>		Student student3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;老李&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;laol&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 创建 学生对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        Student student <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;老王&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;laow&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        Student student2 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;老张&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;laoz&#34;</span><span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        Student student3 <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Student<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;老李&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;laol&#34;</span><span style="color:#f92672">);</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		ArrayList<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;</span> arrayList <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
-</span></span><span style="display:flex;"><span>		arrayList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>student<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>		arrayList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>student2<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>		arrayList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>student3<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 序列化操作
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">// serializ(arrayList);
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 反序列化  
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		ObjectInputStream ois  <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectInputStream<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;list.txt&#34;</span><span style="color:#f92672">));</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 读取对象,强转为ArrayList类型
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		ArrayList<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;</span> list  <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>ArrayList<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;)</span>ois<span style="color:#f92672">.</span><span style="color:#a6e22e">readObject</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>		
-</span></span><span style="display:flex;"><span>      	<span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span> i<span style="color:#f92672">++</span> <span style="color:#f92672">){</span>
-</span></span><span style="display:flex;"><span>          	Student s <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>        	System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>s<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;--&#34;</span><span style="color:#f92672">+</span> s<span style="color:#f92672">.</span><span style="color:#a6e22e">getPwd</span><span style="color:#f92672">());</span>
-</span></span><span style="display:flex;"><span>      	<span style="color:#f92672">}</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>        ArrayList<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;</span> arrayList <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ArrayList<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>        arrayList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>student<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        arrayList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>student2<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        arrayList<span style="color:#f92672">.</span><span style="color:#a6e22e">add</span><span style="color:#f92672">(</span>student3<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 序列化操作
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// serializ(arrayList);
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 反序列化  
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        ObjectInputStream ois  <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectInputStream<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileInputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;list.txt&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 读取对象,强转为ArrayList类型
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        ArrayList<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;</span> list  <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>ArrayList<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;)</span>ois<span style="color:#f92672">.</span><span style="color:#a6e22e">readObject</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> 0<span style="color:#f92672">;</span> i <span style="color:#f92672">&lt;</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">size</span><span style="color:#f92672">();</span> i<span style="color:#f92672">++</span> <span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>            Student s <span style="color:#f92672">=</span> list<span style="color:#f92672">.</span><span style="color:#a6e22e">get</span><span style="color:#f92672">(</span>i<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>            System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>s<span style="color:#f92672">.</span><span style="color:#a6e22e">getName</span><span style="color:#f92672">()+</span><span style="color:#e6db74">&#34;--&#34;</span><span style="color:#f92672">+</span> s<span style="color:#f92672">.</span><span style="color:#a6e22e">getPwd</span><span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">serializ</span><span style="color:#f92672">(</span>ArrayList<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;</span> arrayList<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 创建 序列化流 
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		ObjectOutputStream oos <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectOutputStream<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;list.txt&#34;</span><span style="color:#f92672">));</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 写出对象
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		oos<span style="color:#f92672">.</span><span style="color:#a6e22e">writeObject</span><span style="color:#f92672">(</span>arrayList<span style="color:#f92672">);</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 释放资源
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		oos<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">serializ</span><span style="color:#f92672">(</span>ArrayList<span style="color:#f92672">&lt;</span>Student<span style="color:#f92672">&gt;</span> arrayList<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> Exception <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 创建 序列化流 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        ObjectOutputStream oos <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> ObjectOutputStream<span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> FileOutputStream<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;list.txt&#34;</span><span style="color:#f92672">));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 写出对象
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        oos<span style="color:#f92672">.</span><span style="color:#a6e22e">writeObject</span><span style="color:#f92672">(</span>arrayList<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 释放资源
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        oos<span style="color:#f92672">.</span><span style="color:#a6e22e">close</span><span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div>
     </div>
   </article>
-  
-<div id="gitalk-container"></div>
-<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-<script>
-  const gitalk = new Gitalk({
-    clientID: '',
-    clientSecret: '',
-    repo: '',
-    owner: '',
-    admin: [''],
-    id: location.pathname, 
-    distractionFreeMode: false 
-  });
-  (function() {
-    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-      document.getElementById('gitalk-container').innerHTML = 'Gitalk comments not available by default when the website is previewed locally.';
-      return;
-    }
-    gitalk.render('gitalk-container');
-  })();
-</script>
-
   
 
 

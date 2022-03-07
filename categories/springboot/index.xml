@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>SpringBoot on A Hugo website</title>
-    <link>https://D1-novo.github.io/categories/springboot/</link>
+    <link>https://zhuweixiong22.github.io/categories/springboot/</link>
     <description>Recent content in SpringBoot on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://D1-novo.github.io/categories/springboot/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://zhuweixiong22.github.io/categories/springboot/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>关于 @ResponseBody 的那些事</title>
-      <link>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E-responsebody-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</link>
+      <link>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E-responsebody-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E-responsebody-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</guid>
+      <guid>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E-responsebody-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</guid>
       <description>转载于：https://blog.csdn.net/u014534808/article/details/116859496
 开心编码 事情是这样的，我在用SpringBoot框架搭建的项目上写了一个新增用户的接口，接口地址是/v1/user/test，代码如下所示（demo版，非生产代码），简单到不能再简单的一个接口，像这样的接口我都记不清自己已经写了多少个了。
 @Controller public class TestRespController { 	//新增用户的接口  @RequestMapping(&amp;#34;/v1/user/test&amp;#34;)  public User addUser(String userName, String password) {  User user = new User();  user.setUserName(userName);  user.setPassword(password);  return user;  } } 接口写好之后，我没有多想，就启动项目开始调试代码，我熟练的在chrome浏览器上输入了http://localhost:8080/v1/user/test这个地址，然后点击回车，没想到的是页面上提示了一个404的错误。
