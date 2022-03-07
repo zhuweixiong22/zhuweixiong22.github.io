@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.93.2" />
+
+
+<title>KMP 算法 - A Hugo website</title>
+<meta property="og:title" content="KMP 算法 - A Hugo website">
+
+
+  <link href='https://D1-novo.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+  <meta property="description" content=" ">
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/categories">Categories</a></li>
+    
+    <li><a href="/tags">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">KMP 算法</h1>
+
+    
+    <span class="article-date">2021-12-04</span>
+    
+
+    <div class="article-content">
+      <h2 id="基本概念">基本概念：</h2>
+<ul>
+<li>
+<p><strong>非平凡前缀：包含首位字符但不包含末位字符的子串组合。</strong></p>
+</li>
+<li>
+<p><strong>非平凡后缀：包含末位字符但不包含首位字符的子串组合。</strong></p>
+</li>
+<li>
+<p><strong>next数组定义(又称部分匹配表)：模式串T j指针的变化(即当主串与模式串的某一位字符不匹配时，模式串要回退的位置)</strong></p>
+</li>
+<li>
+<p><strong><code>next[j]</code>的值：当前字符j之前(j-1位)的串的前后缀的相似度(重合字符数+1)</strong></p>
+</li>
+</ul>
+<h2 id="模式串求next数组">模式串求next数组</h2>
+<p>此教程面向的对象：</p>
+<ul>
+<li>了解KMP算法原理，可以手写next数组</li>
+<li>看过求next数组的代码，进行过相关思考</li>
+</ul>
+<p><code>next[j]</code>数组函数定义：</p>
+<p><img src="https://img-blog.csdnimg.cn/edb8aafb0eaa4b11b981f1c10d53df13.png" alt=""></p>
+<p>看懂求next数组代码最重要的是理解下面两句话：</p>
+<ul>
+<li><strong><code>next[j+1]</code>的最大值为<code>next[j]+1</code></strong></li>
+<li><strong>如果$P_{k1}\neq P_{j}$ ,那么next[j+1]可能的最大值为<code>next[next[j]]+1</code>,以此类推即可高效求出next[j+1]。(重点)</strong></li>
+</ul>
+<p>​	第一句话的意思是，我们已知<code>next[j]</code>的情况下，继续与下一位字符匹配，最理想的情况就是下一位字符匹配依然相等$P_{k1}$= $P_{j}$，<code>next[j+1]=next[j]+1</code>,相似度+1</p>
+<p>​	第二句话的意思是，我们已知**<code>next[j]</code><strong>的情况下，继续与下一位字符匹配,匹配不相等（</strong><code>next[j]</code><strong>只是当前字符j之前的串的前后缀的相似度,然而决定</strong>回溯跨度**的是整个S串的前后缀的相似度），进行回溯，继续下一次匹配</p>
+<p>流程：
+①求<code>next[j+1]</code>,则已知<code>next[1]</code>、<code>next[2]</code>$\cdots$<code>next[j]</code></p>
+<p>②假设<code>next[j]</code>=$k_1$,则有$P_1\cdots P_{k-1}$ <strong>=</strong> $P_{j-k+1}\cdots P_{j-1}$(前k1-1位字符与后k1-1位字符重合)</p>
+<p>③如果$P_{k1}$= $P_{j}$,则$P_1\cdots P_{k-1}P_{k1}$ <strong>=</strong> $P_{j-k+1}\cdots P_{j-1}P_{j}$,则<code>next[j+1]=k1+1</code>,否则进入下一步</p>
+<p>④假设<code>next[k1]=k2</code>,则有$P_1\cdots P_{k2-1}$ <strong>=</strong> $P_{k1-k2+1}\cdots P_{k1-1}$</p>
+<p>⑤第二第三步联合得到：$P_1\cdots P_{k2-1}$ <strong>=</strong> $P_{k1-k2+1}\cdots P_{k1-1}$ <strong>=</strong> $P_{j-k1+1}\cdots P_{k2-k1+j-1}$ <strong>=</strong> $P_{j-k2+1}\cdots P_{j-1}$ 即四段
+重合</p>
+<p>⑥这时候，再判断如果$P_{k2}$ = $P_{j}$, 则$P_1\cdots P_{k2-1}P_{k2}$ <strong>=</strong> $P_{j-k2+1}\cdots P_{j-1}P_{j}$ ,则<code>next[j+1]=k2+1</code>;否则
+再取<code>next[k2]=k3</code>…以此类推</p>
+<p>图解：</p>
+<p>假设我们已知next[16] = 8 ,需要求next[17]</p>
+<p>next[16] = 8 ,那么就是在j=16的字符前的串的前后缀有 8 -1 =7个字符重复</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/cc54a2db75c3007e6d4980d33377c37f.png" alt=""></p>
+<p>求next[17] 我们只需要比较$P_{8}$和$P_{16}$，最理想的情况就是$P_{8}$ = $P_{16}$  那么<code>next[17] = next[16]+1</code></p>
+<p>若$P_{8}$ ≠ $P_{16}$ ，k进行回溯，回溯到next[8] （我们假设next[8] = 4）</p>
+<p>next[8] = 4 ,那么就是在j=4的字符前的串的前后缀有 4 -1 =3个字符重复</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/f8b3ea273a1ccc39ff689af23082ad19.png" alt=""></p>
+<p>现在求next[17] 我们只需要比较$P_{4}$和$P_{16}$，第二理想情况就是$P_{4}$ = $P_{16}$  那么<code>next[17] = next[8]+1 = 5</code></p>
+<p>为什么呢</p>
+<p>因为蓝色部分相等，且橙色部分相等 ，那我们就可以推出四部分是相等的</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/2c49a5101c705730850ddcde2a92caff.png" alt=""></p>
+<p>如果第二理想情况都不满足，即$P_{4}$ ≠ $P_{16}$，k继续回溯，k = next[4] （我们假设next[4] = 2）</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/f6b30c7971260eb6ba7d27ef053b2f8f.png" alt=""></p>
+<p>同理，若$P_{2}$ = $P_{16}$  那么<code>next[17] = next[4]+1 = 3</code></p>
+<p>否则，继续回溯，若回溯到next[1]=0,还不相等，则说明相似度为0，递推结束，双指针往后移一位，进行新一轮子串比较</p>
+<p>求next数组代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">getNext</span>(string T,<span style="color:#66d9ef">int</span><span style="color:#f92672">*</span> next){
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>,k <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    next[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//T[0]代表模式串T的长度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">while</span>(i <span style="color:#f92672">&lt;</span> T[<span style="color:#ae81ff">0</span>]){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(k <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> T[i] <span style="color:#f92672">==</span> T[k]) next[<span style="color:#f92672">++</span>i] <span style="color:#f92672">=</span> <span style="color:#f92672">++</span>k; <span style="color:#75715e">//字符相同继续比较
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">else</span> k <span style="color:#f92672">=</span> next[k]; <span style="color:#75715e">//若字符不相同 k指针回溯
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>举个例子：</p>
+<p>模式串：ababac</p>
+<p>先用一个例子来看代码的运行流程</p>
+<p>开始i指针指向1，k指针指向0，只有一个指针指向了字符，至少需要两个字符才能比较，
+进入第一个if满足k == 0，next[++i] =++k,</p>
+<p>i,k指针都向前移一位</p>
+<p><strong>next[2] = 1；即j=2，在j之前只有一个字符，所以前后缀相似度为1</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/daea52b7d2d2519c584aee1948444893.png" alt="0"></p>
+<p><strong>i = 2 ，k = 1  T[2]不等于T[1]  k指针回溯到next[k] 即next[1] = 0 ;</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/5afcf8e64fa521964c82f86608070264.png" alt="1"></p>
+<p><strong>此时k又等于0了 满足if      i，k指针都向前移一位，比较下一位</strong></p>
+<p><strong>next[3] = 1</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/4d1fa22e126a273a3f2a034407657947.png" alt="2"></p>
+<p><strong>i = 3 ， k = 1       T[3] = T[1]   满足if  i ，k 指针继续后移</strong></p>
+<p><strong>next[4] = 2</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/b942bfa368cc88cd4406497402c35895.png" alt="3"></p>
+<p><strong>i = 4 ，k = 2       T[4] = T[2]     满足if    i，k指针继续后移</strong></p>
+<p><strong>next[5] = 3</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/1a733d71501a16b18957ff33043e5d53.png" alt="4"></p>
+<p><strong>i = 5，k = 3       T[5] = T[3]     满足if    i，k指针继续后移</strong></p>
+<p><strong>next[6] = 4</strong><img src="https://img-blog.csdnimg.cn/img_convert/bfded545e72ead57cb3edb4acbee3f73.png" alt="5"></p>
+<p><strong>i = 6，k = 4       T[6] ≠ T[4]     k指针开始回溯到next[k] =next[4] = 2</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/0ba03f8390f5b759e38c2ae875d2c862.png" alt="6"></p>
+<p><strong>i 不变，k = 2       T[6] ≠ T[2]     k指针继续回溯到next[k] =next[2] = 1</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/4b908d97851a48fa8ea0f3aa99df34e3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBARG5vdm8=,size_20,color_FFFFFF,t_70,g_se,x_16" alt="请添加图片描述"></p>
+<p><strong>i 不变，k = 1       T[6] ≠ T[1]    这次匹配不成功则说明子串$P_{1}P_{2}P_{3}P_{4}P_{5}P_{6}$前后缀并不重复，于是k指针回溯到next[k] =next[1] = 0，进行i ，k指针后移比较下一个子串</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/a891d990e4daa532aa85689daeeb2acb.png" alt="8"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/853fce358511a637ca35b620bade6af1.png" alt="9png"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/441e6949df37a64e1df06328c1682381.png" alt="10"></p>
+<p><strong>我们再通过gif动画再来回顾一遍上面的流程：</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/d349f21b2297508474dbee581b28e96e.gif" alt=""></p>
+<h2 id="主串和模式串的匹配">主串和模式串的匹配</h2>
+<p>这一部分就比较简单</p>
+<p>代码</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-C++" data-lang="C++"><span style="display:flex;"><span><span style="color:#75715e">//返回子串T在主串S中第pos字符之后的位置，若不存在则返回0
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//代码需要根据自己的索引值更改循环的边界
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">KMP</span>(string S,string T,<span style="color:#66d9ef">int</span> pos){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> pos;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> next[<span style="color:#ae81ff">255</span>];<span style="color:#f92672">---------------------------</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    getNext(T,next);<span style="color:#f92672">-------------------------</span><span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(i <span style="color:#f92672">&lt;=</span> S[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">&amp;&amp;</span> j <span style="color:#f92672">&lt;=</span> T[<span style="color:#ae81ff">0</span>]){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(j <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> S[i] <span style="color:#f92672">==</span> T[i]){
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">++</span>i;
+</span></span><span style="display:flex;"><span>            <span style="color:#f92672">++</span>j;
+</span></span><span style="display:flex;"><span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            j <span style="color:#f92672">=</span> next[j];<span style="color:#f92672">---------------------</span><span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(j <span style="color:#f92672">&gt;</span> T[<span style="color:#ae81ff">0</span>]) <span style="color:#66d9ef">return</span> i<span style="color:#f92672">-</span>T[<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>下面看两个例子</p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/c156510fc204a5831ea35b871bc43f08.png" alt="KMP"></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/64c87b309d18f182e0a089095a5bd34c.png" alt="KMP2"></p>
+<p>通过上面两个例子也可以看出KMP算法仅当模式与主串之间存在许多“部分匹配”和模式串前后缀相似度小的情况下才能体现它的优势，否则和朴素模式匹配差异并不明显</p>
+
+    </div>
+  </article>
+  
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/sql.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

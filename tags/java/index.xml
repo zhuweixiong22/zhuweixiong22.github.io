@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on A Hugo website</title>
+    <link>https://D1-novo.github.io/tags/java/</link>
+    <description>Recent content in Java on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 31 Dec 2021 11:16:17 +0000</lastBuildDate><atom:link href="https://D1-novo.github.io/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>String StringBuffer 和 StringBuilder 的区别是什么? String 为什么是不可变的?</title>
+      <link>https://D1-novo.github.io/2021/12/31/string-stringbuffer-%E5%92%8C-stringbuilder-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88-string-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</link>
+      <pubDate>Fri, 31 Dec 2021 11:16:17 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/2021/12/31/string-stringbuffer-%E5%92%8C-stringbuilder-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88-string-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</guid>
+      <description>可变性
+简单的来说：String 类中使用 final 关键字修饰字符数组来保存字符串，所以String 对象是不可变的。
+public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence {  private final char value[]; 	//... }  🐛 修正 ： 我们知道被 final 关键字修饰的类不能被继承，修饰的方法不能被重写，修饰的变量是基本数据类型则值不能改变，修饰的变量是引用类型则不能再指向其他对象。因此，final 关键字修饰的数组保存字符串并不是 String 不可变的根本原因，因为这个数组保存的字符串是可变的（final 修饰引用类型变量的情况）。
+String 真正不可变有下面几点原因：
+ 保存字符串的数组被 final 修饰且为私有的，并且String 类没有提供/暴露修改这个字符串的方法。 String 类被 final 修饰导致其不能被继承，进而避免了子类破坏 String 不可变。  相关阅读：如何理解 String 类型值的不可变？ - 知乎提问 (opens new window)
+补充（来自issue 675 (opens new window)）：在 Java 9 之后，String 、StringBuilder 与 StringBuffer 的实现改用 byte 数组存储字符串 private final byte[] value</description>
+    </item>
+    
+    <item>
+      <title>引用拷贝 浅拷贝 和 深拷贝</title>
+      <link>https://D1-novo.github.io/2021/12/30/%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D-%E6%B5%85%E6%8B%B7%E8%B4%9D-%E5%92%8C-%E6%B7%B1%E6%8B%B7%E8%B4%9D/</link>
+      <pubDate>Thu, 30 Dec 2021 17:16:17 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/2021/12/30/%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D-%E6%B5%85%E6%8B%B7%E8%B4%9D-%E5%92%8C-%E6%B7%B1%E6%8B%B7%E8%B4%9D/</guid>
+      <description>**引用拷贝：**引用拷贝，就是拷贝引用地址。两个不同的引用指向同一个对象。
+  浅拷贝：浅拷贝会在堆上创建一个新的对象（区别于引用拷贝的一点）
+  如果属性是基本类型(int,double,long,boolean等)，拷贝的就是基本类型的值
+  如果属性是引用类型，拷贝的就是内存地址（即复制引用但不复制引用的对象）
+ 注：String类型通过常量赋值时相当于基本数据类型，由于String为不可变对象，是无法修改原String的状态的，其会生成一个新的String对象
+     深拷贝 ：深拷贝会完全复制整个对象，包括这个对象所包含的内部对象。
+  图示：
+案例：
+实现浅拷贝
+ 在需要拷贝的类上实现 Cloneable 接口，并重写 clone() 方法。实现很简单，直接调用的是父类 Object 的 clone() 方法。 使用的时候调用实现类的clone方法  public class Address implements Cloneable{  private final String name;  // 省略构造函数、Getter&amp;amp;Setter方法  @Override  public Address clone() {  try {  return (Address) super.clone();  } catch (CloneNotSupportedException e) {  throw new AssertionError();  }  } }  public class Person implements Cloneable {  private Address address;  // 省略构造函数、Getter&amp;amp;Setter方法  @Override  public Person clone() {  try {  Person person = (Person) super.</description>
+    </item>
+    
+    <item>
+      <title>Java 对象序列化/反序列化</title>
+      <link>https://D1-novo.github.io/2021/12/24/java-%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+      <pubDate>Fri, 24 Dec 2021 17:16:17 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/2021/12/24/java-%E5%AF%B9%E8%B1%A1%E5%BA%8F%E5%88%97%E5%8C%96/%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+      <description>概述 Java 提供了一种对象序列化的机制。用一个字节序列可以表示一个对象，该字节序列包含该对象的数据、对象的类型和对象中存储的属性等信息。字节序列写出到文件之后，相当于文件中持久保存了一个对象的信息。
+反之，该字节序列还可以从文件中读取回来，重构对象，对它进行反序列化。对象的数据、对象的类型和对象中存储的数据信息，都可以用来在内存中创建对象。
+简单来说：
+ 序列化： 将数据结构或对象转换成二进制字节流的过程 反序列化：将在序列化过程中所生成的二进制字节流转换成数据结构或者对象的过程  对于 Java 这种面向对象编程语言来说，我们序列化的都是对象（Object）也就是实例化后的类(Class)，但是在 C++这种半面向对象的语言中，struct(结构体)定义的是数据结构类型，而 class 对应的是对象类型。
+维基百科：
+ 序列化（serialization）在计算机科学的数据处理中，是指将数据结构或对象状态转换成可取用格式（例如存成文件，存于缓冲，或经由网络中发送），以留待后续在相同或另一台计算机环境中，能恢复原先状态的过程。依照序列化格式重新获取字节的结果时，可以利用它来产生与原始对象相同语义的副本。对于许多对象，像是使用大量引用的复杂对象，这种序列化重建的过程并不容易。面向对象中的对象序列化，并不概括之前原始对象所关系的函数。这种过程也称为对象编组（marshalling）。从一系列字节提取数据结构的反向操作，是反序列化（也称为解编组、deserialization、unmarshalling）。
+ 综上：序列化的主要目的是通过网络传输对象或者说是将对象存储到文件系统、数据库、内存中。
+ObjectOutputStream类 java.io.ObjectOutputStream  类，将Java对象的原始数据类型写出到文件,实现对象的持久存储。
+构造方法  public ObjectOutputStream(OutputStream out) ： 创建一个指定OutputStream的ObjectOutputStream。  构造举例，代码如下：
+FileOutputStream fileOut = new FileOutputStream(&amp;#34;employee.txt&amp;#34;); ObjectOutputStream out = new ObjectOutputStream(fileOut); 序列化操作  一个对象要想序列化，必须满足两个条件:    该类必须实现java.io.Serializable  接口，Serializable 是一个标记接口，不实现此接口的类将不会使任何状态序列化或反序列化，会抛出NotSerializableException 。
+  该类的所有属性必须是可序列化的。如果有一个属性不需要可序列化的，则该属性必须注明是瞬态的，使用transient 关键字修饰。
+  被static修饰的属性也不会被序列化(因为static属性不属于对象)
+ 注意：
+  transient 只能修饰变量，不能修饰类和方法。
+  transient 修饰的变量，在反序列化后变量值将会被置成类型的默认值。例如，如果是修饰 int 类型，那么反序列后结果就是 0。</description>
+    </item>
+    
+    <item>
+      <title>LeetCode142.环形链表II</title>
+      <link>https://D1-novo.github.io/1/01/01/leetcode142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8ii/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/1/01/01/leetcode142.%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8ii/</guid>
+      <description>142. 环形链表 II 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
+如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。
+不允许修改 链表。
+示例 1：
+输入：head = [3,2,0,-4], pos = 1输出：返回索引为 1 的链表节点解释：链表中有一个环，其尾部连接到第二个节点。 示例 2：
+输入：head = [1,2], pos = 0输出：返回索引为 0 的链表节点解释：链表中有一个环，其尾部连接到第一个节点。 示例 3：
+输入：head = [1], pos = -1输出：返回 null解释：链表中没有环。 提示：
+ 链表中节点的数目范围在范围 [0, 104] 内 -105 &amp;lt;= Node.val &amp;lt;= 105 pos 的值为 -1 或者链表中的一个有效索引  **进阶：**你是否可以使用 O(1) 空间解决此题？</description>
+    </item>
+    
+    <item>
+      <title>LeetCode148.排序链表</title>
+      <link>https://D1-novo.github.io/1/01/01/leetcode148.%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/1/01/01/leetcode148.%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</guid>
+      <description>148. 排序链表 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
+示例 1：
+输入：head = [4,2,1,3]输出：[1,2,3,4] 示例 2：
+输入：head = [-1,5,3,4,0]输出：[-1,0,3,4,5] 示例 3：
+输入：head = []输出：[] 提示：
+ 链表中节点的数目在范围 [0, 5 * 10 ^ 4] 内 -105 &amp;lt;= Node.val &amp;lt;= 105  **进阶：**你可以在 O(n log n) 时间复杂度和常数级空间复杂度下，对链表进行排序吗？
+题解 时间复杂度要求 O(n log n) 的话，只能是快速排序、归并排序和堆排序，而且要求时间复杂度要求 O(1)
+ 数组的堆排空间复杂度是可以达到O(1)的
+ 只能是快排和归并，并且是迭代法(自底向上)，因为递归的话也会占用O(log N)的系统栈空间
+这里选用递归的归并排序，迭代版的下次再补坑
+链表可以通过修改引用来更改节点顺序，merge过程无需像数组一样开辟额外空间；
+大体过程和数组归并差不多
+1、找中点分割
+ 和数组的区别：链表找中点用到了快慢指针，当快指针停下时，慢指针指向中点位置，并且快指针初始指向的是head.next，简化了边界处理。
+ 2、归并过程
+ 和数组的区别：不需要开辟新的空间，只需要两个新指针，一个保存结果的head，一个做为归并时的临时指针。当归并过程，一边链表挂载完毕时，另一边不需要像数组那样通过while循环把剩下的依次复制，只需要挂上剩下结点的引用。</description>
+    </item>
+    
+    <item>
+      <title>LeetCode160.相交链表</title>
+      <link>https://D1-novo.github.io/1/01/01/leetcode160.%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/1/01/01/leetcode160.%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</guid>
+      <description>160. 相交链表 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。
+图示两个链表在节点 c1 开始相交**：**
+题目数据 保证 整个链式结构中不存在环。
+注意，函数返回结果后，链表必须 保持其原始结构 。
+题解 注意：题目说的相交是指引用值相等，而不是val值相等
+使用哈希表肯定是能解的，但是空间复杂度不够好。所以不用哈希表，下面两个双指针解法的本质都是通过消除长度差，以同等的路程，两个指针同时开始遍历，两个链表如果相交，两个指针必然会相遇（相遇两指针相等）且不为null，为null说明不相交。
+双指针通俗易懂解法 public ListNode getIntersectionNode(ListNode headA, ListNode headB) {  // 这里判空可以不写  if (headA == null || headB == null) {  return null;  }  int lenA = 0;  int lenB = 0;  ListNode curA = headA;  ListNode curB = headB;  while (curA !</description>
+    </item>
+    
+    <item>
+      <title>移位运算符 val / 2 != val &gt;&gt; 1 的情况</title>
+      <link>https://D1-novo.github.io/1/01/01/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6-val-/-2-val-1-%E7%9A%84%E6%83%85%E5%86%B5/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/1/01/01/%E7%A7%BB%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6-val-/-2-val-1-%E7%9A%84%E6%83%85%E5%86%B5/</guid>
+      <description>在写堆排序用移位运算的时候发现执行报了个数组索引越界
+打印了下才发现 -1 &amp;raquo; 1 并不等于0而是等于1
+ 原码 补码 右移一位 结果（原码） -1 = 1000 0001， 1111 1111， 1111 1111 -1 -2 = 1000 0010， 1111 1110， 1111 1111 -1 -3 = 1000 0011， 1111 1101， 1111 1110 -2 -4 = 1000 0100， 1111 1100， 1111 1110 -2 -5 = 1000 0101， 1111 1011， 1111 1101 -3 -6 = 1000 0110， 1111 1010， 1111 1101 -3 对于 val / 2 != val &amp;raquo; 1的原因是：val为负数且为奇数或者正数移位数超过类型最大位数溢出为负。</description>
+    </item>
+    
+  </channel>
+</rss>

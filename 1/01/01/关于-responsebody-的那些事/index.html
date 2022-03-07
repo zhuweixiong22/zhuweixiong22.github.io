@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.93.2" />
+
+
+<title>关于 @ResponseBody 的那些事 - A Hugo website</title>
+<meta property="og:title" content="关于 @ResponseBody 的那些事 - A Hugo website">
+
+
+  <link href='https://D1-novo.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+  <meta property="description" content=" ">
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/categories">Categories</a></li>
+    
+    <li><a href="/tags">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">关于 @ResponseBody 的那些事</h1>
+
+    
+    <span class="article-date">0001-01-01</span>
+    
+
+    <div class="article-content">
+      <p>转载于：<a href="%E5%8E%9F%E6%96%87%E9%93%BE%E6%8E%A5">https://blog.csdn.net/u014534808/article/details/116859496</a></p>
+<h1 id="开心编码">开心编码</h1>
+<p>事情是这样的，我在用<strong>SpringBoot框架搭建的项目</strong>上写了一个新增用户的接口，接口地址是<code>/v1/user/test</code>，代码如下所示（demo版，非生产代码），简单到不能再简单的一个接口，像这样的接口我都记不清自己已经写了多少个了。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Controller</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestRespController</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//新增用户的接口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">@RequestMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/v1/user/test&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">addUser</span><span style="color:#f92672">(</span>String userName<span style="color:#f92672">,</span> String password<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>        User user <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> User<span style="color:#f92672">();</span>
+</span></span><span style="display:flex;"><span>        user<span style="color:#f92672">.</span><span style="color:#a6e22e">setUserName</span><span style="color:#f92672">(</span>userName<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        user<span style="color:#f92672">.</span><span style="color:#a6e22e">setPassword</span><span style="color:#f92672">(</span>password<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> user<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>接口写好之后，我没有多想，就启动项目开始调试代码，我熟练的在chrome浏览器上输入了<code>http://localhost:8080/v1/user/test</code>这个地址，然后点击回车，没想到的是页面上提示了一个404的错误。</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/20210513144554646.png" alt=""></p>
+<p>这是怎么回事呢？我这接口地址没有错呀，为啥找不到接口呢？奇了怪了。我火急火燎的跑到控制台，看看有没有错误日志。让我很失望啥错误都没有输出，过滤器也准确的把我的输入的请求地址打印出来了。</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/20210513144617968.png" alt=""></p>
+<h1 id="苦苦寻找">苦苦寻找</h1>
+<p>为啥页面报了404的错误，而控制台没有任何错误输出呢？实在是有点诡异。问同事嘛，又不好意思，自己好歹是个高级开发工程师，404的问题都搞不定实在是说不过去。三十六计走为上，看看其他的正常的接口是怎么写的。然后，我找到了这样一个接口，这个接口是可以正常访问的，</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@ResponseBody</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/v1/user/test/update&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> User <span style="color:#a6e22e">updateUser</span><span style="color:#f92672">(</span>User user<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">boolean</span> result <span style="color:#f92672">=</span> testNgService<span style="color:#f92672">.</span><span style="color:#a6e22e">updateUser</span><span style="color:#f92672">(</span>user<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> result <span style="color:#f92672">?</span> user <span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>哦哦哦，我突然恍然大悟，原来是没有在接口上添加<code>@ResponseBody</code> 注解，我印象中这个注解可以将返回的对象序列化成<code>json</code>字符串，并放在响应体中，但是跟接口地址又有啥关系呢？。抱着试试看的态度，我在接口上加上了 <code>@ResponseBody</code>注解，代码就不列举了，太简单了不好意思列举。再次访问<code>http://localhost:8080/v1/user/test </code>这个地址，接口可以正常返回数据了。</p>
+<p>当然，如果该类下所有的接口都是返回<code>application/json</code>格式数据的接口，则可以直接将类上的**<code>@Controller</code>注解替换成 <code>@RestController</code> 注解。<code>@RestController</code>注解是一个组合注解是由<code>@Controller</code>注解和<code>ResponseBody</code>注解组成**。</p>
+<h1 id="思考升华">思考升华</h1>
+<p>至此，问题是解决了。但是，心中的小问号还萦绕在心头。</p>
+<ul>
+<li>为啥页面报了404的错误，但是控制台没有错误日志呢？</li>
+<li>为啥不加@ResponseBody注解接口会报404的错误呢？</li>
+</ul>
+<h2 id="为啥页面报了404的错误但是控制台没有错误日志呢">为啥页面报了404的错误，但是控制台没有错误日志呢？</h2>
+<p>为啥出现了404的异常，但是控制台没有错误的日志输出呢？这个就很奇怪了。这个问题是我们首先需要解决的，不然不知道具体的错误是啥，就很难定位到问题。根据已经掌握<code>SpringMVC</code>的知识：我们在页面输入一个<code>url</code>之后，请求首先会到<code>DispatcherServlet</code>。然后，<code>DispatcherServlet</code>会根据<code>url</code>去<code>HandelMapping</code>中找到能处理该请求的<code>Handler</code>。如果找不到的话则会报错404的错误，所以，猜测<code>SpringBoot</code>抛出的是<code>NoHandlerFoundException</code>这个异常，现在的问题就是为啥这个<code>NoHandlerFoundException</code>没输出呢？一番百度之后，我发现只需要在配置文件<code>application.yml</code>中添加如下配置即可：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>spring:
+</span></span><span style="display:flex;"><span>  mvc<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> 允许抛出NoHandlerFoundException
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">throw</span><span style="color:#f92672">-</span>exception<span style="color:#f92672">-</span><span style="color:#66d9ef">if</span><span style="color:#f92672">-</span>no<span style="color:#f92672">-</span>handler<span style="color:#f92672">-</span>found<span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">#</span> 禁用资源映射
+</span></span><span style="display:flex;"><span>  resources<span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    add<span style="color:#f92672">-</span>mappings<span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>
+</span></span></code></pre></div><p>加上这两个配置之后，在访问接口的话，控制台就会打印出如下的错误日志：我们看到在查找mapping时url就变成了 <strong><code>/v1/user/v1/user/test</code></strong>，不是我们期待的 <strong><code>/v1/user/test</code></strong>。</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/20210513232343878.png" alt=""></p>
+<blockquote>
+<p>说明：加上<code>spring.resources.add-mappings=false</code> 禁用资源映射之后，可以输出</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>o<span style="color:#f92672">.</span><span style="color:#a6e22e">s</span><span style="color:#f92672">.</span><span style="color:#a6e22e">web</span><span style="color:#f92672">.</span><span style="color:#a6e22e">servlet</span><span style="color:#f92672">.</span><span style="color:#a6e22e">PageNotFound</span>             <span style="color:#f92672">:</span> No mapping <span style="color:#66d9ef">for</span> GET <span style="color:#f92672">/</span>v1<span style="color:#f92672">/</span>user<span style="color:#f92672">/</span>v1<span style="color:#f92672">/</span>user<span style="color:#f92672">/</span>test
+</span></span></code></pre></div><p><code>SpringBoot</code>中的<code>WebMvcAutoConfiguration</code>类配置默认资源映射地址是 <strong>&quot;/&quot;</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">private</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">final</span> String SERVLET_LOCATION <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;/&#34;</span><span style="color:#f92672">;</span>
+</span></span></code></pre></div><p>即使你的地址错误也会匹配到 <strong>/</strong>** 这个静态资源映射地址，就不会进入noHandlerFound方法，自然不会抛出NoHandlerFoundException了。
+异常终于暴露出来了。接下来就是处理异常了。</p>
+<h2 id="为啥不加responsebody注解接口会报404的错误呢">为啥不加<code>@ResponseBody</code>注解接口会报404的错误呢？</h2>
+<p>要想回答这个问题，还是要回到 <code>@ResponseBody</code> 注解的作用上面，一番苦苦的搜索之后，我终于发现了答案。<code>@ResponseBody</code> 注解的作用就是将Controller返回的对象通过适当的<code>HttpMessageConverter</code>转换为指定的格式，写入到Response对象的body数据区中返回给前端页面。如果没有加这个注解，只有<code>@RequestMapping</code>这个注解的话，则返回值通常解析为跳转路径，控制器返回的时候路径会变为（在当前路径的上一级路径上追加路径），然后返回的过程找不到对应的视图，导致404的错误。这只是理论，实际上是不是这样子的呢？还需要我们验证一下。</p>
+<p>不加@ResponseBody则默认会返回一个视图，如下图所示，返回一个名为 <strong>/static/helloWorld.html</strong>的视图。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/v1/user/test1&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">queryUserHtml2</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;/static/helloWorld.html&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>即会访问static目录下的helloWorld.html页面。</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/20210513235046559.png" alt=""></p>
+<p>访问结果是：</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/20210513235103649.png" alt=""></p>
+<p>页面可以正常的跳转，说明，不加上<code>@ResponseBody</code>注解确实会默认返回一个视图，这是正常的能找到页面的视图，如果返回一个不存在的视图会怎样呢？</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/v1/user/test2&#34;</span><span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">queryUserHtml3</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;{\&#34;code\&#34;:200}&#34;</span><span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p>打印出来的路径是 <strong>/v1/user/{“code”:200}</strong>，即/v1/user/test2的上级路径 <strong>/v1/user</strong>+<strong>{“code”:200}</strong>，说明上面的理论解释是没有问题的。</p>
+<h1 id="总结">总结</h1>
+<p>本文从实际开发中一个很小的问题入手，层层分析问题的根源，知其然更要知其所以然。总之，一句话总<code>@ResponseBody</code>注解的作用就是将返回的结果通过<code>HttpMessageConverter</code> 转换为指定格式并放在响应体中，没有它的话，<code>SpringBoot</code>会默认返回一个视图。</p>
+
+    </div>
+  </article>
+  
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/sql.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+

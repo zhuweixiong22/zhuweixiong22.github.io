@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>思维导图 on A Hugo website</title>
+    <link>https://D1-novo.github.io/categories/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
+    <description>Recent content in 思维导图 on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 05 Dec 2021 17:16:17 +0000</lastBuildDate><atom:link href="https://D1-novo.github.io/categories/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>思维</title>
+      <link>https://D1-novo.github.io/2021/12/05/%E6%80%9D%E7%BB%B4/</link>
+      <pubDate>Sun, 05 Dec 2021 17:16:17 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/2021/12/05/%E6%80%9D%E7%BB%B4/</guid>
+      <description>对数器
+二分查找  在一个有序数组中，找到某个数是否存在 在一个有序(升序)数组中，找 &amp;gt;= 某个数最左侧的位置 在一个有序(升序)数组中，找 &amp;lt;= 某个数最右侧的位置 局部最小值问题  局部最小值问题 二分不一定要有序：数据状况特殊，问题特殊，只要能找出数据的排他性，有一半数据肯定有，另一半数据不确定，那就可以砍一半用二分。
+给出一个无序且相邻两个数不相等的数组，找出一个局部最小数（找谷底）
+给出局部最小定义：
+[0]位置时，只要[0] &amp;lt; [1]，那么[0]就是局部最小
+[N - 1]位置时，只要[N - 2] &amp;gt; [N - 1]，那么[N - 1]就是局部最小
+[i]位置(不在0和N - 1)，需要[i - 1] &amp;gt; [i] &amp;lt; [i + 1]
+先特判两个边界，若找到了其中一个就返回
+若找不到，则说明左边界单调递减，右边界单调递增，所以1 ~ N - 2 间一定会有最小值
+二分找中间，如果此时找到了直接返回
+若找不到，则有三种情况单调递增、单调递减和i为局部最大，无论哪种情况都至少存在一个区域可以继续二分找出局部最小值。
+位运算 异或定义：无进位相加
+性质
+ 0 ^ N == N N ^ N == 0 满足结合律和交换律，所以同一批数异或，无论是什么顺序，结果唯一  1、如何不用额外空间交换两个数 a = a ^ b; b = a ^ b; //证明：b = a ^ b ==&amp;gt; (a ^ b) ^ b ==&amp;gt; a ^ (b ^ b) ==&amp;gt; a ^ 0 ==&amp;gt; a a = a ^ b; //证明：a = a ^ b ==&amp;gt; (a ^ b) ^ a ==&amp;gt; (a ^ a) ^ b ==&amp;gt; 0 ^ b ==&amp;gt; b 注意前提是：a和b在内存中的位置不相等(即a和b有各自独立的内存区域,a和b的值可以一眼)，如果a和b指向同一块内存，执行三行代码后会变成0</description>
+    </item>
+    
+    <item>
+      <title>思维导图</title>
+      <link>https://D1-novo.github.io/2021/12/05/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
+      <pubDate>Sun, 05 Dec 2021 17:16:17 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/2021/12/05/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
+      <description>Java   Java I/O: https://www.processon.com/view/6128e2fc079129550eeaaff1?fromnew=1
+  Java 8/反射: https://www.processon.com/view/612f95677d9c081c75321834?fromnew=1
+  Web基础   MySQL: https://www.processon.com/view/613227d9f346fb07155d14fa?fromnew=1
+  Redis基础: https://www.processon.com/view/614b3fb6e0b34d2b8d398484?fromnew=1
+  Java Web大纲: https://www.processon.com/view/61532d271efad4243d3efa2f?fromnew=1
+  Servlet: https://www.processon.com/view/61446da50e3e746b35a1b1b2?fromnew=1
+  Filter/Listener: https://www.processon.com/view/614deabaf346fb12580aac40?fromnew=1
+  JSP: https://www.processon.com/view/614b4002f346fb69b1678bfe?fromnew=1
+  前端基础: https://www.processon.com/view/6121fe230e3e743b32794564?fromnew=1
+  框架   Spring/Spring MVC: https://www.processon.com/view/615e6b4a5653bb45b2c2a7e9?fromnew=1
+  Mybatis: https://www.processon.com/view/6157d59a0791295710b3b4c9?fromnew=1
+  SpringSecurity: https://www.processon.com/view/618fddd5f346fb6e389dfad0?fromnew=1
+  SpringBoot: https://www.processon.com/view/616ea2c85653bb2aeb397b3f?fromnew=1
+  Git: https://www.processon.com/view/6177c8cd5653bb7318d66ab5?fromnew=1
+  数据结构  数据结构基础: https://www.</description>
+    </item>
+    
+  </channel>
+</rss>

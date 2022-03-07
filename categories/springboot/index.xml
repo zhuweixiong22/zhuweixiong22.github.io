@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SpringBoot on A Hugo website</title>
+    <link>https://D1-novo.github.io/categories/springboot/</link>
+    <description>Recent content in SpringBoot on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language><atom:link href="https://D1-novo.github.io/categories/springboot/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于 @ResponseBody 的那些事</title>
+      <link>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E-responsebody-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E-responsebody-%E7%9A%84%E9%82%A3%E4%BA%9B%E4%BA%8B/</guid>
+      <description>转载于：https://blog.csdn.net/u014534808/article/details/116859496
+开心编码 事情是这样的，我在用SpringBoot框架搭建的项目上写了一个新增用户的接口，接口地址是/v1/user/test，代码如下所示（demo版，非生产代码），简单到不能再简单的一个接口，像这样的接口我都记不清自己已经写了多少个了。
+@Controller public class TestRespController { 	//新增用户的接口  @RequestMapping(&amp;#34;/v1/user/test&amp;#34;)  public User addUser(String userName, String password) {  User user = new User();  user.setUserName(userName);  user.setPassword(password);  return user;  } } 接口写好之后，我没有多想，就启动项目开始调试代码，我熟练的在chrome浏览器上输入了http://localhost:8080/v1/user/test这个地址，然后点击回车，没想到的是页面上提示了一个404的错误。
+这是怎么回事呢？我这接口地址没有错呀，为啥找不到接口呢？奇了怪了。我火急火燎的跑到控制台，看看有没有错误日志。让我很失望啥错误都没有输出，过滤器也准确的把我的输入的请求地址打印出来了。
+苦苦寻找 为啥页面报了404的错误，而控制台没有任何错误输出呢？实在是有点诡异。问同事嘛，又不好意思，自己好歹是个高级开发工程师，404的问题都搞不定实在是说不过去。三十六计走为上，看看其他的正常的接口是怎么写的。然后，我找到了这样一个接口，这个接口是可以正常访问的，
+@ResponseBody @RequestMapping(&amp;#34;/v1/user/test/update&amp;#34;) public User updateUser(User user) {  boolean result = testNgService.updateUser(user);  return result ? user : null; } 哦哦哦，我突然恍然大悟，原来是没有在接口上添加@ResponseBody 注解，我印象中这个注解可以将返回的对象序列化成json字符串，并放在响应体中，但是跟接口地址又有啥关系呢？。抱着试试看的态度，我在接口上加上了 @ResponseBody注解，代码就不列举了，太简单了不好意思列举。再次访问http://localhost:8080/v1/user/test 这个地址，接口可以正常返回数据了。
+当然，如果该类下所有的接口都是返回application/json格式数据的接口，则可以直接将类上的**@Controller注解替换成 @RestController 注解。@RestController注解是一个组合注解是由@Controller注解和ResponseBody注解组成**。
+思考升华 至此，问题是解决了。但是，心中的小问号还萦绕在心头。
+ 为啥页面报了404的错误，但是控制台没有错误日志呢？ 为啥不加@ResponseBody注解接口会报404的错误呢？  为啥页面报了404的错误，但是控制台没有错误日志呢？ 为啥出现了404的异常，但是控制台没有错误的日志输出呢？这个就很奇怪了。这个问题是我们首先需要解决的，不然不知道具体的错误是啥，就很难定位到问题。根据已经掌握SpringMVC的知识：我们在页面输入一个url之后，请求首先会到DispatcherServlet。然后，DispatcherServlet会根据url去HandelMapping中找到能处理该请求的Handler。如果找不到的话则会报错404的错误，所以，猜测SpringBoot抛出的是NoHandlerFoundException这个异常，现在的问题就是为啥这个NoHandlerFoundException没输出呢？一番百度之后，我发现只需要在配置文件application.</description>
+    </item>
+    
+  </channel>
+</rss>

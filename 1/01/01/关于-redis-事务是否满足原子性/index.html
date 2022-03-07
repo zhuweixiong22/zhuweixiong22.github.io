@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.93.2" />
+
+
+<title>关于 Redis 事务是否满足原子性 - A Hugo website</title>
+<meta property="og:title" content="关于 Redis 事务是否满足原子性 - A Hugo website">
+
+
+  <link href='https://D1-novo.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+  <meta property="description" content=" ">
+  
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/categories">Categories</a></li>
+    
+    <li><a href="/tags">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">关于 Redis 事务是否满足原子性</h1>
+
+    
+    <span class="article-date">0001-01-01</span>
+    
+
+    <div class="article-content">
+      <p>个人理解这个问题需要分两种情况讨论</p>
+<ul>
+<li><code>multi</code>开启事务后命令队列语法有错误或取消事务<code>discard</code></li>
+<li><code>multi</code>开启事务后命令队列运行错误</li>
+</ul>
+<h1 id="第一种情况">第一种情况</h1>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220103104538048.png" alt=""></p>
+<p>可以看到开启事务后输入一个错误语法命令<code>get name zhangsan</code>后立即显示错误提示了，再执行<code>exec</code>自然也是不行的，所有命令都不会执行。</p>
+<p><code>discard</code>的情况就不用说了，取消事务。</p>
+<p><strong>这种情况下是满足事务的原子性的</strong>，要不所有命令执行成功，要不一个命令都不执行。</p>
+<h1 id="第二种情况">第二种情况</h1>
+<p>开启事务后命令语法正确，但是在命令执行期间出错，如输入参数的数据类型不符合命令的参数要求。</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220103105843086.png" alt=""></p>
+<p>set name后用了list的指令，可以看到命令执行后，能够正确运行的命令会执行，运行错误的命令不会被执行。<strong>这种情况下Redis 事务其实不满足原子性的</strong>，也就是Redis 不支持事务回滚机制，运行错误需要手动回滚(应该避免)。</p>
+<h1 id="为什么redis不支持回滚">为什么Redis不支持回滚</h1>
+<p>官方文档说明：</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220103112057004.png" alt=""></p>
+
+    </div>
+  </article>
+  
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+    
+
+    
+  </body>
+</html>
+

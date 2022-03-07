@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.93.2" />
+
+
+<title>关于使用 SpringDataRedis 配置序列化方式时报错 - A Hugo website</title>
+<meta property="og:title" content="关于使用 SpringDataRedis 配置序列化方式时报错 - A Hugo website">
+
+
+  <link href='https://D1-novo.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+  <meta property="description" content=" ">
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/categories">Categories</a></li>
+    
+    <li><a href="/tags">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">关于使用 SpringDataRedis 配置序列化方式时报错</h1>
+
+    
+    <span class="article-date">0001-01-01</span>
+    
+
+    <div class="article-content">
+      <p><strong>SpringBoot下RedisConfig配置</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#75715e">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @author novo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> * @date 2022/1/2-22:13
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"> */</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Configuration</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">RedisConfig</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@Bean</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> RedisTemplate<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span>Object<span style="color:#f92672">&gt;</span> <span style="color:#a6e22e">redisTemplate</span><span style="color:#f92672">(</span>LettuceConnectionFactory lettuceConnectionFactory<span style="color:#f92672">){</span>
+</span></span><span style="display:flex;"><span>        RedisTemplate<span style="color:#f92672">&lt;</span>String<span style="color:#f92672">,</span> Object<span style="color:#f92672">&gt;</span> redisTemplate <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> RedisTemplate<span style="color:#f92672">&lt;&gt;();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//为string类型的key设置序列化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        redisTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">setKeySerializer</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> StringRedisSerializer<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//为string类型的value设置序列化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        redisTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">setValueSerializer</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> GenericJackson2JsonRedisSerializer<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer(Object.class));
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">//为hash设置序列化
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        redisTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">setHashKeySerializer</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> StringRedisSerializer<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        redisTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">setHashValueSerializer</span><span style="color:#f92672">(</span><span style="color:#66d9ef">new</span> GenericJackson2JsonRedisSerializer<span style="color:#f92672">());</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 设置 RedisConnection 工厂。 它就是实现多种 Java Redis 客户端接入的工厂
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        redisTemplate<span style="color:#f92672">.</span><span style="color:#a6e22e">setConnectionFactory</span><span style="color:#f92672">(</span>lettuceConnectionFactory<span style="color:#f92672">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> redisTemplate<span style="color:#f92672">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div><p><strong>报错信息</strong></p>
+<pre tabindex="0"><code>org.springframework.data.redis.serializer.SerializationException: 
+Could not read JSON: Cannot construct instance of `com.novo.springdataredis.pojo.User` 
+(no Creators, like default constructor, exist):
+cannot deserialize from Object value (no delegate- or property-based Creator)
+
+Cannot construct instance of `com.novo.springdataredis.pojo.User` 
+(no Creators, like default constructor, exist): 
+cannot deserialize from Object value (no delegate- or property-based Creator)
+</code></pre><p>后面两行信息说的很清楚了</p>
+<p>就是pojo类的默认构造器不存在，也就是没有无参构造器，反序列化对象失败</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102232137313.png" alt=""></p>
+<p><strong>简单来说JVM反序列化对象需要一个无参构造器</strong></p>
+<p>网上一篇博客通过源码解析：<a href="https://www.jianshu.com/p/b6797afff7df">关于Java反序列化是否需要空参构造器</a></p>
+<p>复习一下 {% post_link Java/Java对象序列化反序列化 %}</p>
+<p><strong>总结一下反序列化操作失败的几点原因</strong></p>
+<ul>
+<li>该类的序列版本号与从流中读取的类描述符的版本号不匹配</li>
+<li>该类包含未知数据类型</li>
+<li>该类没有可访问的无参数构造方法</li>
+</ul>
+
+    </div>
+  </article>
+  
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/sql.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+

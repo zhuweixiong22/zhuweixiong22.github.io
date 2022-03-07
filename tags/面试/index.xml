@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>面试 on A Hugo website</title>
+    <link>https://D1-novo.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
+    <description>Recent content in 面试 on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 31 Dec 2021 11:16:17 +0000</lastBuildDate><atom:link href="https://D1-novo.github.io/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>String StringBuffer 和 StringBuilder 的区别是什么? String 为什么是不可变的?</title>
+      <link>https://D1-novo.github.io/2021/12/31/string-stringbuffer-%E5%92%8C-stringbuilder-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88-string-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</link>
+      <pubDate>Fri, 31 Dec 2021 11:16:17 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/2021/12/31/string-stringbuffer-%E5%92%8C-stringbuilder-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88-string-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84/</guid>
+      <description>可变性
+简单的来说：String 类中使用 final 关键字修饰字符数组来保存字符串，所以String 对象是不可变的。
+public final class String implements java.io.Serializable, Comparable&amp;lt;String&amp;gt;, CharSequence {  private final char value[]; 	//... }  🐛 修正 ： 我们知道被 final 关键字修饰的类不能被继承，修饰的方法不能被重写，修饰的变量是基本数据类型则值不能改变，修饰的变量是引用类型则不能再指向其他对象。因此，final 关键字修饰的数组保存字符串并不是 String 不可变的根本原因，因为这个数组保存的字符串是可变的（final 修饰引用类型变量的情况）。
+String 真正不可变有下面几点原因：
+ 保存字符串的数组被 final 修饰且为私有的，并且String 类没有提供/暴露修改这个字符串的方法。 String 类被 final 修饰导致其不能被继承，进而避免了子类破坏 String 不可变。  相关阅读：如何理解 String 类型值的不可变？ - 知乎提问 (opens new window)
+补充（来自issue 675 (opens new window)）：在 Java 9 之后，String 、StringBuilder 与 StringBuffer 的实现改用 byte 数组存储字符串 private final byte[] value</description>
+    </item>
+    
+    <item>
+      <title>引用拷贝 浅拷贝 和 深拷贝</title>
+      <link>https://D1-novo.github.io/2021/12/30/%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D-%E6%B5%85%E6%8B%B7%E8%B4%9D-%E5%92%8C-%E6%B7%B1%E6%8B%B7%E8%B4%9D/</link>
+      <pubDate>Thu, 30 Dec 2021 17:16:17 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/2021/12/30/%E5%BC%95%E7%94%A8%E6%8B%B7%E8%B4%9D-%E6%B5%85%E6%8B%B7%E8%B4%9D-%E5%92%8C-%E6%B7%B1%E6%8B%B7%E8%B4%9D/</guid>
+      <description>**引用拷贝：**引用拷贝，就是拷贝引用地址。两个不同的引用指向同一个对象。
+  浅拷贝：浅拷贝会在堆上创建一个新的对象（区别于引用拷贝的一点）
+  如果属性是基本类型(int,double,long,boolean等)，拷贝的就是基本类型的值
+  如果属性是引用类型，拷贝的就是内存地址（即复制引用但不复制引用的对象）
+ 注：String类型通过常量赋值时相当于基本数据类型，由于String为不可变对象，是无法修改原String的状态的，其会生成一个新的String对象
+     深拷贝 ：深拷贝会完全复制整个对象，包括这个对象所包含的内部对象。
+  图示：
+案例：
+实现浅拷贝
+ 在需要拷贝的类上实现 Cloneable 接口，并重写 clone() 方法。实现很简单，直接调用的是父类 Object 的 clone() 方法。 使用的时候调用实现类的clone方法  public class Address implements Cloneable{  private final String name;  // 省略构造函数、Getter&amp;amp;Setter方法  @Override  public Address clone() {  try {  return (Address) super.clone();  } catch (CloneNotSupportedException e) {  throw new AssertionError();  }  } }  public class Person implements Cloneable {  private Address address;  // 省略构造函数、Getter&amp;amp;Setter方法  @Override  public Person clone() {  try {  Person person = (Person) super.</description>
+    </item>
+    
+    <item>
+      <title>关于 Redis 事务是否满足原子性</title>
+      <link>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E-redis-%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%AD%90%E6%80%A7/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://D1-novo.github.io/1/01/01/%E5%85%B3%E4%BA%8E-redis-%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%AD%90%E6%80%A7/</guid>
+      <description>个人理解这个问题需要分两种情况讨论
+ multi开启事务后命令队列语法有错误或取消事务discard multi开启事务后命令队列运行错误  第一种情况 可以看到开启事务后输入一个错误语法命令get name zhangsan后立即显示错误提示了，再执行exec自然也是不行的，所有命令都不会执行。
+discard的情况就不用说了，取消事务。
+这种情况下是满足事务的原子性的，要不所有命令执行成功，要不一个命令都不执行。
+第二种情况 开启事务后命令语法正确，但是在命令执行期间出错，如输入参数的数据类型不符合命令的参数要求。
+set name后用了list的指令，可以看到命令执行后，能够正确运行的命令会执行，运行错误的命令不会被执行。这种情况下Redis 事务其实不满足原子性的，也就是Redis 不支持事务回滚机制，运行错误需要手动回滚(应该避免)。
+为什么Redis不支持回滚 官方文档说明：</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.93.2" />
+
+
+<title>Redis 综合 - A Hugo website</title>
+<meta property="og:title" content="Redis 综合 - A Hugo website">
+
+
+  <link href='https://D1-novo.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+  <meta property="description" content=" ">
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/categories">Categories</a></li>
+    
+    <li><a href="/tags">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">3 min read</span>
+    
+
+    <h1 class="article-title">Redis 综合</h1>
+
+    
+    <span class="article-date">0001-01-01</span>
+    
+
+    <div class="article-content">
+      <h1 id="redis-基础">Redis 基础</h1>
+<h2 id="概念">概念</h2>
+<h2 id="数据类型">数据类型</h2>
+<h2 id="通用命令">通用命令</h2>
+<h2 id="jedis">Jedis</h2>
+<h1 id="redis-高级">Redis 高级</h1>
+<h2 id="持久化">持久化</h2>
+<h3 id="持久化简介">持久化简介</h3>
+<h3 id="rdb">RDB</h3>
+<p>（Redis DataBase）</p>
+<h4 id="save指令">save指令</h4>
+<ul>
+<li>
+<p>命令</p>
+<pre tabindex="0"><code>save
+</code></pre></li>
+<li>
+<p>手动指定一次保存操作</p>
+</li>
+</ul>
+<p>​		<img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20211230234142506.png" alt=""></p>
+<p><strong>save指令相关配置</strong></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20211230232835139.png" alt=""></p>
+<ul>
+<li>
+<p><strong>dbfilename dump.rdb</strong></p>
+<p>说明：设置本地数据库文件名，默认值为 dump.rdb经验：通常设置为<strong>dump-端口号.rdb</strong></p>
+</li>
+<li>
+<p><strong>dir</strong></p>
+<p>说明：设置存储.rdb文件的路径</p>
+<p>经验：<strong>pwd命令显示当前目录绝对路径</strong>（填写这个路径），通常设置成存储空间较大的目录中，目录名称<strong>data</strong></p>
+</li>
+<li>
+<p><strong>dbcompression yes</strong></p>
+<p>说明：<strong>设置存储至本地数据库时是否压缩数据</strong>，默认为 yes，采用 LZF 压缩</p>
+<p>经验：通常默认为开启状态，如果设置为no，可以节省 CPU 运行时间，但会使存储的文件变大（巨大）</p>
+</li>
+<li>
+<p><strong>rdbchecksum yes</strong></p>
+<p>说明：<strong>设置是否进行RDB文件格式校验</strong>，该校验过程在写文件和读文件过程均进行</p>
+<p>经验：通常默认为开启状态，如果设置为no，可以节约读写性过程约10%时间消耗，但是存储一定的数据损坏风险</p>
+</li>
+</ul>
+<p><strong>save指令工作原理</strong></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20211230233604312.png" alt=""></p>
+<p>注意：<strong>save指令的执行会阻塞当前Redis服务器，直到当前RDB过程完成为止，有可能会造成长时间阻塞，线上环境不建议使用。</strong></p>
+<h4 id="bgsave指令">bgsave指令</h4>
+<ul>
+<li>
+<p>命令</p>
+<pre tabindex="0"><code>bgsave
+</code></pre></li>
+<li>
+<p>作用</p>
+<p>手动启动后台保存操作，但不是立即执行，可以若执行成功可在日志文件看到信息</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20211230234042026.png" alt=""></p>
+</li>
+</ul>
+<p><strong>bgsave指令相关配置</strong></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20211230234336540.png" alt=""></p>
+<p><strong>bgsave指令工作原理</strong></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20211230234409482.png" alt=""></p>
+<p>注意： <strong>bgsave命令是针对save阻塞问题做的优化</strong>。<strong>Redis内部所有涉及到RDB操作应该都采用bgsave的方式</strong>，save命令可以放弃使用。</p>
+<h4 id="save配置自动配置">save配置(自动配置)</h4>
+<ul>
+<li>
+<p>配置</p>
+<pre tabindex="0"><code>save second changes
+</code></pre></li>
+<li>
+<p>作用
+满足限定时间范围内key的变化数量达到指定数量即进行持久化</p>
+</li>
+<li>
+<p>参数
+second：监控时间范围
+changes：监控key的变化量</p>
+</li>
+<li>
+<p>位置
+在conf文件中进行配置</p>
+</li>
+<li>
+<p>范例</p>
+<pre tabindex="0"><code>save second changes
+save 900 1
+save 300 10
+save 60 10000
+</code></pre><p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20211230234801992.png" alt=""></p>
+</li>
+</ul>
+<p><strong>save配置原理</strong></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20211230234844319.png" alt=""></p>
+<h4 id="rdb三种启动方式对比">RDB三种启动方式对比</h4>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>save指令</th>
+<th>bgsave指令</th>
+<th>save配置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>读写</td>
+<td>同步</td>
+<td>异步</td>
+<td>异步</td>
+</tr>
+<tr>
+<td>阻塞客户端指令</td>
+<td>是</td>
+<td>否</td>
+<td>否</td>
+</tr>
+<tr>
+<td>额外内存消耗</td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+</tr>
+<tr>
+<td>启动新进程</td>
+<td>否</td>
+<td>是</td>
+<td>是</td>
+</tr>
+</tbody>
+</table>
+<h4 id="rdb优缺点">RDB优缺点</h4>
+<ul>
+<li>优点
+<ul>
+<li>RDB是一个<strong>紧凑压缩的二进制文件</strong>，<strong>存储效率较高(这是二进制存储的特点)</strong></li>
+<li>RDB内部存储的是redis在某个时间点的<strong>数据快照</strong>，非常适合用于数据备份，全量复制等场景</li>
+<li>RDB<strong>恢复数据的速度要比AOF快</strong>很多</li>
+<li>应用：服务器中每X小时执行bgsave备份，并将RDB文件拷贝到远程机器中，用于<strong>灾难恢复</strong>。</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>大数据量下的IO性能较低</li>
+<li>RDB方式无论是执行指令还是利用配置，无法做到实时持久化，具有较大的可能性<strong>丢失数据</strong></li>
+<li>bgsave指令每次运行要执行fork操作<strong>创建子进程</strong>，要牺牲掉一些性能</li>
+<li>Redis的众多版本中未进行RDB文件格式的版本统一，有可能出现各版本服务之间数据格式无法兼容现象</li>
+</ul>
+</li>
+</ul>
+<h3 id="aof">AOF</h3>
+<p>（AppendOnly File）</p>
+<h4 id="写的三种策略">写的三种策略</h4>
+<ul>
+<li><strong>always(每次）</strong>
+每次写入操作均同步到AOF文件中，数据零误差，性能较低，不建议使用。</li>
+<li><strong>everysec（每秒）</strong>
+每秒将缓冲区中的指令同步到AOF文件中，数据准确性较高，性能较高，建议使用，也是默认配置
+在系统突然宕机的情况下丢失1秒内的数据</li>
+<li><strong>no（系统控制）</strong>
+由操作系统控制每次同步到AOF文件的周期，整体过程不可控</li>
+</ul>
+<p>AOF功能开启</p>
+<ul>
+<li>
+<p>配置</p>
+<pre tabindex="0"><code>appendonly yes|no
+</code></pre></li>
+<li>
+<p>作用
+是否开启AOF持久化功能，默认为不开启状态</p>
+</li>
+<li>
+<p>配置</p>
+<pre tabindex="0"><code>appendfsync always|everysec|no
+</code></pre></li>
+<li>
+<p>作用</p>
+<p>AOF写数据策略</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20211231233249333.png" alt=""></p>
+<h4 id="aof重写">AOF重写</h4>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/aaa.drawio.png" alt=""></p>
+<h3 id="rdb-aof混合持久化">RDB-AOF混合持久化</h3>
+<p>redis4.0版本开始允许使用RDB-AOF混合持久化的方式</p>
+<p>结合了两者的优点通过aof-use-rdb-preamble配置项可以打开混合开关。</p>
+<p>这里阿里云的文档，redis官方的外网文档才有更新</p>
+<p><a href="https://developer.aliyun.com/article/193034">https://developer.aliyun.com/article/193034</a></p>
+<p><a href="https://redis.io/topics/persistence">https://redis.io/topics/persistence</a></p>
+<h3 id="rdb与aof的区别">RDB与AOF的区别</h3>
+<h3 id="持久化应用场景">持久化应用场景</h3>
+<h2 id="事务">事务</h2>
+<blockquote>
+<p><strong>什么是redis事务？</strong></p>
+<p>redis事务就是一个命令执行的队列，将一系列预定义命令包装成一个整体（一个队列）。当执行时，一次性
+按照添加顺序依次执行，中间不会被打断或者干扰。
+一个队列中，一次性、顺序性、排他性的执行一系列命令。</p>
+<p>注意：区别于关系型数据库原子性问题</p>
+</blockquote>
+<h3 id="事务基本操作">事务基本操作</h3>
+<ul>
+<li>
+<p>开启事务</p>
+<pre tabindex="0"><code>multi
+</code></pre><ul>
+<li>作用
+设定事务的开启位置，此指令执行后，后续的所有指令均加入到事务队列中</li>
+</ul>
+</li>
+<li>
+<p>执行事务 （executive）</p>
+<pre tabindex="0"><code>exec
+</code></pre><ul>
+<li>
+<p>作用
+设定事务的结束位置，同时执行事务。与multi成对出现，成对使用</p>
+<blockquote>
+<p><strong>注意：加入事务的命令暂时进入到任务队列中，并没有立即执行，只有执行exec命令才开始执行</strong></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>
+<p>取消事务</p>
+<pre tabindex="0"><code>discard
+</code></pre><ul>
+<li>
+<p>作用</p>
+<p>事务定义过程中发现出了问题，清空事务队列中保存的所有命令，终止当前事务的定义，发生在<code>multi</code>之后，<code>exec</code>之前</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220101111903478.png" alt=""></p>
+<h3 id="redis事务是否满足原子性">Redis事务是否满足原子性</h3>
+<p>{% post_link 关于Redis事务是否满足原子性 %}</p>
+<h3 id="锁">锁</h3>
+<h4 id="监视锁">监视锁</h4>
+<p><strong>业务场景</strong></p>
+<p>天猫双11热卖过程中，对已经售罄的货物追加补货，4个业务员都有权限进行补货。补货的操作可能是一系
+列的操作，牵扯到多个连续操作，如何保障不会重复操作？</p>
+<p><strong>业务分析</strong></p>
+<ul>
+<li>多个客户端有可能同时操作同一组数据，并且该数据一旦被操作修改后，将不适用于继续操作</li>
+<li>在操作之前锁定要操作的数据，一旦发生变化，终止当前操作</li>
+</ul>
+<p><strong>解决方案</strong></p>
+<ul>
+<li>
+<p>对 key 添加监视锁，开启事务<code>multi</code>后在执行<code>exec</code>前如果key发生了变化，终止该事务执行</p>
+<pre tabindex="0"><code>watch key1 [key2......]
+</code></pre></li>
+<li>
+<p>取消对所有 key 的监视</p>
+<pre tabindex="0"><code>unwatch
+</code></pre></li>
+</ul>
+<h4 id="分布式锁">分布式锁</h4>
+<p><strong>业务场景</strong></p>
+<p>天猫双11热卖过程中，对已经售罄的货物追加补货，且补货完成。客户购买热情高涨，3秒内将所有商品购买完毕。本次补货已经将库存全部清空，如何避免最后一件商品不被多人同时购买？【超卖问题】</p>
+<p><strong>业务分析</strong></p>
+<ul>
+<li>使用watch监控一个key有没有改变已经不能解决问题，此处要监控的是具体数据</li>
+<li>虽然redis是单线程的，但是多个客户端对同一数据同时进行操作时，如何避免不被同时修改？</li>
+</ul>
+<p><strong>解决方案</strong></p>
+<ul>
+<li>
+<p>使用 setnx 设置一个公共锁</p>
+<pre tabindex="0"><code>setnx lock-key value
+</code></pre><p>利用setnx命令的返回值特征，有值则返回设置失败，无值则返回设置成功</p>
+<ul>
+<li>
+<p>对于返回设置成功的，拥有控制权，进行下一步的具体业务操作</p>
+</li>
+<li>
+<p>对于返回设置失败的，不具有控制权，排队或等待操作完毕通过del操作释放锁</p>
+</li>
+</ul>
+</li>
+<li>
+<p>解锁</p>
+<pre tabindex="0"><code>del lock-name
+</code></pre><blockquote>
+<p>注意：上述解决方案是一种设计概念，依赖规范保障，具有风险性</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="分布式锁改良解决死锁">分布式锁改良（解决死锁）</h4>
+<p><strong>业务场景</strong></p>
+<p>依赖分布式锁的机制，某个用户操作时对应客户端宕机，且此时已经获取到锁。如何解决？</p>
+<p><strong>业务分析</strong></p>
+<ul>
+<li>由于锁操作由用户控制加锁解锁，必定会存在加锁后未解锁的风险</li>
+<li>需要解锁操作不能仅依赖用户控制，系统级别要给出对应的保底处理方案</li>
+</ul>
+<p><strong>解决方案</strong></p>
+<p>使用 expire 为锁key添加时间限定，到时不释放，放弃锁</p>
+<pre tabindex="0"><code>setnx lock-key value
+expire lock-key second 
+pexpire lock-key milliseconds
+</code></pre><p>由于操作通常都是微秒或毫秒级，因此该锁定时间不宜设置过大。具体时间需要业务测试后确认。</p>
+<ul>
+<li>例如：持有锁的操作最长执行时间127ms，最短执行时间7ms。</li>
+<li>测试百万次最长执行时间对应命令的最大耗时，测试百万次网络延迟平均耗时</li>
+<li>锁时间设定推荐：最大耗时<em>120%+平均网络延迟</em>110%</li>
+<li>如果业务最大耗时&laquo;网络平均延迟，通常为2个数量级，取其中单个耗时较长即可</li>
+</ul>
+<h3 id="redssion">Redssion</h3>
+<h2 id="过期删除策略">过期/删除策略</h2>
+<h3 id="过期数据">过期数据</h3>
+<p><strong>数据特征:</strong></p>
+<p>Redis是一种内存级数据库，所有数据均存放在内存中，内存中的数据可以通过<code>TTL</code>指令获取其状态</p>
+<ul>
+<li>XX ：具有时效性的数据</li>
+<li>-1 ：永久有效的数据</li>
+<li>-2 ：已经过期的数据 或 被删除的数据 或 未定义的数据</li>
+</ul>
+<p>但是考虑到CPU占用问题这些过期的数据实际上还存在内存中</p>
+<h3 id="过期策略">过期策略</h3>
+<blockquote>
+<p>又叫<strong>key过期淘汰机制</strong></p>
+<p>这里讲的都是具有时效性的过期数据，与<strong>逐出策略</strong>不同</p>
+</blockquote>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102120906994.png" alt=""></p>
+<p><strong>删除策略的目标：</strong></p>
+<blockquote>
+<p>在内存占用与CPU占用之间寻找一种平衡，顾此失彼都会造成整体redis性能的下降，甚至引发服务器宕机或内存泄露</p>
+</blockquote>
+<h4 id="定时删除">定时删除</h4>
+<ul>
+<li>创建一个定时器，当key设置有过期时间，且过期时间到达时，由定时器任务立即执行对键的删除操作</li>
+<li>优点：节约内存，到时就删除，快速释放掉不必要的内存占用</li>
+<li>缺点：CPU压力很大，无论CPU此时负载量多高，均占用CPU，会影响redis服务器响应时间和指令吞吐量</li>
+<li>总结：用处理器性能换取存储空间（时间换空间）</li>
+</ul>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102120920612.png" alt=""></p>
+<h4 id="惰性删除">惰性删除</h4>
+<ul>
+<li>
+<p>数据到达过期时间，不做处理。等下次访问该数据时</p>
+</li>
+<li>
+<p>如果未过期，返回数据</p>
+<blockquote>
+<p>由expireIfNeeded()函数实现</p>
+</blockquote>
+</li>
+<li>
+<p>发现已过期，删除，返回不存在</p>
+</li>
+<li>
+<p>优点：节约CPU性能，发现必须删除的时候才删除</p>
+</li>
+<li>
+<p>缺点：内存压力很大，出现长期占用内存的数据</p>
+</li>
+<li>
+<p>总结：用存储空间换取处理器性能
+（空间换时间）</p>
+</li>
+</ul>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5%E7%9A%84%E5%AE%9E%E7%8E%B0.png" alt="惰性删除策略的实现"></p>
+<h4 id="定期删除">定期删除</h4>
+<blockquote>
+<p>定期删除策略是定时删除策略和惰性删除策略的一种整合折中方案。</p>
+</blockquote>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102122253069.png" alt=""></p>
+<blockquote>
+<p>W可以自己定义conf配置文件</p>
+<p>上图只画出了8个db，每个db里有一个expires</p>
+<p>轮询执行：</p>
+<p>​	sertverCron() ：对整个Redis存储空间</p>
+<p>​	databasesCron()：对每一个database库（expires[]）</p>
+<p>​	activeExpireCycle()：对expires[]里的每一个key检测</p>
+</blockquote>
+<ul>
+<li>周期性轮询redis库中的时效性数据，采用随机抽取的策略，利用过期数据占比的方式控制删除频度</li>
+<li>特点1：CPU性能占用设置有峰值，检测频度可自定义设置</li>
+<li>特点2：内存压力不是很大，长期占用内存的冷数据会被持续清理</li>
+<li>总结：周期性抽查存储空间
+（随机抽查，重点抽查(一轮中删除key数量比较多，循环该过程)）</li>
+</ul>
+<h4 id="删除策略比对">删除策略比对</h4>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102123448251.png" alt=""></p>
+<blockquote>
+<p><strong>注意：Redis服务器使用的是惰性删除策略和定期删除策略。</strong></p>
+</blockquote>
+<h3 id="逐出策略">逐出策略</h3>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102123834241.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102123855482.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102123959774.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102124114534.png" alt=""></p>
+<h2 id="redisconf">redis.conf</h2>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102125051928.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102125104171.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102125125708.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102125141337.png" alt=""></p>
+<h2 id="高级数据类型">高级数据类型</h2>
+<h3 id="bitmaps">Bitmaps</h3>
+<ul>
+<li>
+<p>获取指定key对应偏移量上的bit值</p>
+<pre tabindex="0"><code>getbit key offset
+</code></pre></li>
+<li>
+<p>设置指定key对应偏移量上的bit值，value只能是1或0</p>
+<pre tabindex="0"><code>setbit key offset value
+</code></pre></li>
+<li>
+<p>对指定key按位进行交、并、非、异或操作，并将结果保存到destKey中</p>
+<ul>
+<li>and：交</li>
+<li>or：并</li>
+<li>not：非</li>
+<li>xor：异或</li>
+</ul>
+</li>
+<li>
+<p>统计指定key中1的数量</p>
+<pre tabindex="0"><code>bitop op destKey key1 [key2...]
+bitcount key [start end]
+</code></pre></li>
+</ul>
+<p><strong>业务场景</strong></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102134157223.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102134217529.png" alt=""></p>
+<h3 id="hyperloglog">HyperLogLog</h3>
+<p><strong>基数</strong></p>
+<ul>
+<li>基数是数据集去重后元素个数</li>
+<li>HyperLogLog 是用来做基数统计的，运用了LogLog的算法</li>
+</ul>
+<p>{1, 3, 5, 7, 5, 7, 8}         基数集： {1, 3, 5 ,7, 8}          基数：5
+{1, 1, 1, 1, 1, 7, 1}         基数集： {1,7}                       基数：2</p>
+<p>基于LogLog算法</p>
+<p><strong>基本操作</strong></p>
+<ul>
+<li>
+<p>添加数据</p>
+<pre tabindex="0"><code>pfadd key element [element ...]
+</code></pre></li>
+<li>
+<p>统计数据</p>
+<pre tabindex="0"><code>pfcount key [key ...]
+</code></pre></li>
+<li>
+<p>合并数据</p>
+<pre tabindex="0"><code>pfmerge destkey sourcekey [sourcekey...]
+</code></pre></li>
+</ul>
+<p><strong>相关说明</strong></p>
+<ul>
+<li>用于进行基数统计，不是集合，不保存数据，只记录数量而不是具体数据</li>
+<li>核心是基数估算算法，最终数值存在一定误差</li>
+<li>误差范围：基数估计的结果是一个带有 0.81% 标准错误的近似值</li>
+<li>耗空间极小，每个hyperloglog key占用了12K的内存用于标记基数</li>
+<li>pfadd命令不是一次性分配12K内存使用，会随着基数的增加内存逐渐增大</li>
+<li>Pfmerge命令合并后占用的存储空间为12K，无论合并之前数据量多少</li>
+</ul>
+<h3 id="geo">GEO</h3>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102164913047.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102164934674.png" alt=""></p>
+<p><strong>基本操作</strong></p>
+<ul>
+<li>
+<p>添加坐标点</p>
+<pre tabindex="0"><code>geoadd key longitude latitude member [longitude latitude member ...]
+georadius key longitude latitude radius m|km|ft|mi [withcoord] [withdist] [withhash] [count count]
+</code></pre></li>
+<li>
+<p>获取坐标点</p>
+<pre tabindex="0"><code>geopos key member [member ...]
+georadiusbymember key member radius m|km|ft|mi [withcoord] [withdist] [withhash] [count count]
+</code></pre></li>
+<li>
+<p>计算坐标点距离</p>
+<pre tabindex="0"><code>geodist key member1 member2 [unit]
+</code></pre></li>
+<li>
+<p>计算经纬度</p>
+<pre tabindex="0"><code>geohash key member [member ...]
+</code></pre></li>
+</ul>
+<h1 id="redis-集群">Redis 集群</h1>
+<h2 id="主从复制">主从复制</h2>
+<blockquote>
+<p><strong>主从复制是哨兵和 cluster 实施的基础，是高可用的基石</strong></p>
+</blockquote>
+<h3 id="单机redis的风险与问题">单机redis的风险与问题</h3>
+<ul>
+<li>问题1.机器故障
+<ul>
+<li>现象：硬盘故障、系统崩溃</li>
+<li>本质：数据丢失，很可能对业务造成灾难性打击</li>
+<li>结论：基本上会放弃使用redis.</li>
+</ul>
+</li>
+<li>问题2.容量瓶颈
+<ul>
+<li>现象：内存不足，从16G升级到64G，从64G升级到128G，无限升级内存</li>
+<li>本质：穷，硬件条件跟不上</li>
+<li>结论：放弃使用redis</li>
+<li>结论：</li>
+</ul>
+</li>
+</ul>
+<p>为了避免单点Redis服务器故障，准备多台服务器，互相连通。将数据复制多个副本保存在不同的服务器上，连接在一起，并保证数据是同步的。即使有其中一台服务器宕机，其他服务器依然可以继续提供服务，实现Redis的高可用，同时实现数据冗余备份。</p>
+<ul>
+<li>解决方案</li>
+</ul>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104212639803.png" alt=""></p>
+<blockquote>
+<p>Redis 3之前是一对多</p>
+</blockquote>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104213048355.png" alt=""></p>
+<h3 id="主从复制的作用">主从复制的作用</h3>
+<ul>
+<li>读写分离：master写、slave读，提高服务器的读写负载能力</li>
+<li>负载均衡：基于主从结构，配合读写分离，由slave分担master负载，并根据需求的变化，改变slave的数量，通过多个从节点分担数据读取负载，大大提高Redis服务器并发量与数据吞吐量</li>
+<li>故障恢复：当master出现问题时，由slave提供服务，实现快速的故障恢复</li>
+<li>数据冗余：实现数据热备份，是持久化之外的一种数据冗余方式</li>
+<li>高可用基石：基于主从复制，构建哨兵模式与集群，实现Redis的高可用方案</li>
+</ul>
+<h3 id="主从复制工作流程">主从复制工作流程</h3>
+<p><strong>主从复制过程大体可以分为3个阶段</strong></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104213413920.png" alt=""></p>
+<h4 id="建立连接阶段即准备阶段">建立连接阶段（即准备阶段）</h4>
+<p><strong>主从连接</strong></p>
+<p><strong>从&ndash;&gt;主(从连接主)</strong></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104213552571.png" alt=""></p>
+<blockquote>
+<p>第八步是设置权限是可选的，因为Redis一般是对内服务，不对外提供功能，安全性较高</p>
+</blockquote>
+<p>Redis 5.0 之前使用 slaveof（之后使用replicaof 命令）</p>
+<ul>
+<li>
+<p>方式一：从客户端发送命令</p>
+<pre tabindex="0"><code>slaveof &lt;masterip&gt; &lt;masterport&gt;
+slaveof 127.0.0.1 6379
+</code></pre></li>
+<li>
+<p>方式二：启动从服务器参数</p>
+<pre tabindex="0"><code>redis-server -slaveof &lt;masterip&gt; &lt;masterport&gt;
+redis-server redis-6379.conf --slaveof 127.0.0.1 6379
+</code></pre></li>
+<li>
+<p>方式三：从服务器配置（配置文件）</p>
+<pre tabindex="0"><code>slaveof &lt;masterip&gt; &lt;masterport&gt;
+</code></pre></li>
+<li>
+<p>slave系统信息</p>
+<ul>
+<li>master_link_down_since_secondsi</li>
+<li>masterhost</li>
+<li>masterport</li>
+</ul>
+</li>
+<li>
+<p>master系统信息</p>
+<ul>
+<li>slave_listening_port(多个)</li>
+</ul>
+</li>
+<li>
+<p>主从断开(从客户端发)</p>
+<pre tabindex="0"><code>slaveof no one
+</code></pre><blockquote>
+<p>注意：slave断开连接后，不会删除已有数据，只是不再接受master发送的数据</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>授权访问</strong></p>
+<ul>
+<li>
+<p>master客户端发送命令设置密码</p>
+<pre tabindex="0"><code>requirepass &lt;password&gt;
+</code></pre></li>
+<li>
+<p>master配置文件设置密码</p>
+<pre tabindex="0"><code>config set requirepass &lt;password&gt; 
+config get requirepass
+</code></pre></li>
+<li>
+<p>slave客户端发送命令设置密码</p>
+<pre tabindex="0"><code>auth &lt;password&gt;
+</code></pre></li>
+<li>
+<p>slave配置文件设置密码</p>
+<pre tabindex="0"><code>masterauth &lt;password&gt;
+</code></pre></li>
+<li>
+<p>slave启动服务器设置密码</p>
+<pre tabindex="0"><code>redis-server –a &lt;password&gt;
+</code></pre></li>
+</ul>
+<p>主从连接成功后slave从服务器的日志信息</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104175610210.png" alt="主从连接成功后slave从服务器的日志信息"></p>
+<p>主从连接成功后master主服务器的日志信息</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104175628869.png" alt="主从连接成功后master主服务器的日志信息"></p>
+<h4 id="数据同步阶段">数据同步阶段</h4>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104221302780.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104222125227.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104222209268.png" alt=""></p>
+<p>总结下缓冲区：<code>replication buffer</code>存放的东西</p>
+<ul>
+<li>
+<p>master执行rdb bgsave产生snapshot的期间的数据更新操作</p>
+</li>
+<li>
+<p>master发送rdb到slave网络传输期间的数据更新操作</p>
+</li>
+<li>
+<p>slave load rdb文件把数据恢复到内存的期间的数据更新操作</p>
+</li>
+</ul>
+<h4 id="命令传播阶段">命令传播阶段</h4>
+<blockquote>
+<p>实时保持数据同步，<strong>会启动增量复制</strong></p>
+</blockquote>
+<ul>
+<li>当master数据库状态被修改后，导致主从服务器数据库状态不一致，此时需要让主从数据同步到一致的状态，同步的动作称为命令传播</li>
+<li>master将接收到的数据变更命令发送给slave，slave接收命令后执行命令</li>
+</ul>
+<h5 id="出现断网现象问题">出现断网现象问题</h5>
+<ul>
+<li>网络闪断闪连				忽略</li>
+<li>短时间网络中断            增量复制</li>
+<li>长时间网络中断            全量复制</li>
+</ul>
+<h5 id="增量复制的三个核心要素">增量复制的三个核心要素</h5>
+<ul>
+<li>服务器的运行 id（run id）</li>
+<li>主服务器的复制积压缓冲区</li>
+<li>主从服务器的复制偏移量</li>
+</ul>
+<p><strong>1、run id</strong></p>
+<blockquote>
+<p>●概念：服务器运行ID是每一台服务器每次运行的身份识别码，一台服务器多次运行可以生成多个运行id</p>
+<p>●组成：运行id由40位字符组成，是一个随机的十六进制字符
+例如：fdc9ff13b9bbaab28db42b3d50f852bb5e3fcdce</p>
+<p>●作用：运行id被用于在服务器间进行传输，识别身份。如果想两次操作均对同一台服务器进行，必须每次操作携带对应的运行id，用于对方识别</p>
+<p>●  实现方式：运行id在每台服务器启动时自动生成的，master在首次连接slave时，会将自己的运行ID发送给slave，slave保存此ID，通过info Server命令，可以查看节点的runid</p>
+</blockquote>
+<p><strong>2、复制积压缓冲区</strong></p>
+<blockquote>
+<p>●概念：<strong>repl_backlog_buffer</strong>，又称复制缓冲区，是一个环形缓冲区，用于存储服务器执行过的命
+令，每次传播命令，master都会将传播的命令记录下来，并存储在复制缓冲区，做备份作用</p>
+<p>​	<strong>复制缓冲区默认数据存储空间大小是1M，由于存储空间大小是固定的，是一个环形数组</strong></p>
+<p>●由来：每台服务器启动时，<strong>如果开启有AOF或被连接成为master节点</strong>，即创建复制缓冲区</p>
+<p>●作用：用于保存master收到的所有指令（<strong>仅影响数据变更的指令</strong>，例如set，select）</p>
+<p>●数据来源：当master接收到主客户端的指令时，除了将指令执行，会将该指令存储到缓冲区中</p>
+</blockquote>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104232332240.png" alt="image-20220104232332240"></p>
+<p><strong>工作原理</strong></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104224626672.png" alt=""></p>
+<blockquote>
+<p><strong>注意：offset由谁来记录？</strong></p>
+<p>slave必须要记录，因为从必须知道自己增量复制到哪里了</p>
+<p>master也要记录，因为当slave出现网络问题是，master和slave所记录的offset不一致，master再把slave丢失的数据重新复制</p>
+</blockquote>
+<p><strong>3、偏移量offset</strong></p>
+<blockquote>
+<p>●概念：一个数字，描述复制缓冲区中的指令字节位置</p>
+<p>●  分类：</p>
+<p>​	●  master复制偏移量：记录发送给所有slave的指令字节对应的位置（多个）</p>
+<p>​	●  slave复制偏移量：记录slave接收master发送过来的指令字节对应的位置（一个）</p>
+<p>●数据来源：</p>
+<p>​	master端：发送一次记录一次</p>
+<p>​	slave端：接收一次记录一次</p>
+<p>●作用：同步信息，比对master与slave的差异，当slave断线后，恢复数据使用</p>
+</blockquote>
+<h5 id="replication-buffer-和-rep_backlog_buffer-的区别">replication buffer 和 rep_backlog_buffer 的区别</h5>
+<p>当主服务器进行命令传播的时候，maser不仅将所有的数据更新命令发送到所有slave的replication buffer，还会写入replication backlog。当断开的slave重新连接上master的时候，slave将会发送psync命令（包含复制的偏移量offset），请求partial resync。如果请求的offset不存在，那么执行全量的sync操作，相当于重新建立主从复制。</p>
+<p>这篇讲得比较清楚：https://mp.weixin.qq.com/s?__biz=MzkzMDI1NjcyOQ==&amp;mid=2247487769&amp;idx=1&amp;sn=3c975ea118d4e59f72df5beed58f4768&amp;source=41#wechat_redirect</p>
+<h5 id="心跳机制">心跳机制</h5>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104232604944.png" alt=""></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220104232620662.png" alt=""></p>
+<h3 id="常见问题">常见问题</h3>
+<h4 id="频繁的全量复制">频繁的全量复制</h4>
+<h4 id="频繁的网路中断">频繁的网路中断</h4>
+<h4 id="数据不一致">数据不一致</h4>
+<h2 id="哨兵模式">哨兵模式</h2>
+<blockquote>
+<p>master宕机情况</p>
+</blockquote>
+<h3 id="简介">简介</h3>
+<h3 id="启用哨兵模式">启用哨兵模式</h3>
+<h3 id="哨兵工作原理">哨兵工作原理</h3>
+<blockquote>
+<p><strong>主从切换流程三个阶段</strong></p>
+</blockquote>
+<h4 id="监控">监控</h4>
+<blockquote>
+<p>用于同步各个节点的状态信息，通过info指令获取获取master的状态、slave、各个sentinel的状态（是否在线）</p>
+</blockquote>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220105110358515.png" alt=""></p>
+<h5 id="哨兵与master间通信">哨兵与master间通信</h5>
+<blockquote>
+<p>哨兵与master建立通信利用 master 提供发布/订阅机制发布自己的信息，再建立cmd连接，为了方便后期sentinel与master之间命令的交换</p>
+</blockquote>
+<h5 id="哨兵间相互发现">哨兵间相互发现</h5>
+<blockquote>
+<p>是哨兵通过info命令获取master的sentinels信息来得知在此哨兵之前是否有其他哨兵来监控</p>
+</blockquote>
+<h5 id="哨兵间相互通信">哨兵间相互通信</h5>
+<blockquote>
+<p>利用Redis的<code>pub/sub</code>发布/订阅机制，master 有一个 <code>_sentinel_:hello</code> 的专用通道，用于哨兵之间发布和订阅消息。这就好比是 <code>_sentinel_:hello</code> 微信群，哨兵利用 master 建立的微信群发布自己的消息，同时关注其他哨兵发布的消息。</p>
+<p>发布命令<code>PUBLISH _sentinel_: hello</code>，订阅命令<code>SUBSCRIBE _sentinel_:hello</code></p>
+</blockquote>
+<h5 id="每个节点启动定时任务">每个节点启动定时任务</h5>
+<blockquote>
+<ul>
+<li>第一个定时任务： 每个sentinel节点每隔1s向所有的master、slaver、别的sentinel节点发送一个<code>PING</code>命令，作用：<strong>心跳检测</strong></li>
+<li>第二个定时任务： 每个sentinel每隔2s都会向master的<code>_sentinel_:hello</code>通道中发送自己掌握的集群信息和自己的一些信息（比如host,ip,run id）作用：<strong>信息交换</strong>，了解别的sentinel的信息和他们对于主节点的判断</li>
+<li>第三个定时任务： 每个sentinel节点每隔10s都会向master和slaver发送<code>INFO</code>命令，作用：<strong>发现最新的集群拓扑结构</strong></li>
+</ul>
+</blockquote>
+<h4 id="通知">通知</h4>
+<p>就是上面的第一个定时任务<code>PING</code></p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220105120429509.png" alt=""></p>
+<h4 id="故障转移">故障转移</h4>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220105120845805.png" alt=""></p>
+<h5 id="确认master客观下线">确认master客观下线</h5>
+<h5 id="leader选举">Leader选举</h5>
+<p>投票（一般配置票数quorum为哨兵数/2 + 1 ）确定master客观下线后，进行<strong>Leader 选举</strong>，投票选出这次<strong>执行主从切换</strong>的哨兵</p>
+<h5 id="执行主从切换">执行主从切换</h5>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220105121748088.png" alt="选新的master"></p>
+<blockquote>
+<p>新master上任，其他slave切换master，原master作为slave故障回复后连接</p>
+</blockquote>
+<h2 id="cluster模式">Cluster模式</h2>
+<h2 id="企业解决方案">企业解决方案</h2>
+
+    </div>
+  </article>
+  
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/sql.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+

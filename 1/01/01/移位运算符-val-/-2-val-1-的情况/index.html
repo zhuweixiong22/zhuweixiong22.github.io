@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.93.2" />
+
+
+<title>移位运算符 val / 2 != val &gt;&gt; 1 的情况 - A Hugo website</title>
+<meta property="og:title" content="移位运算符 val / 2 != val &gt;&gt; 1 的情况 - A Hugo website">
+
+
+  <link href='https://D1-novo.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+  <meta property="description" content=" ">
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/categories">Categories</a></li>
+    
+    <li><a href="/tags">Tags</a></li>
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">移位运算符 val / 2 != val &gt;&gt; 1 的情况</h1>
+
+    
+    <span class="article-date">0001-01-01</span>
+    
+
+    <div class="article-content">
+      <p>在写堆排序用移位运算的时候发现执行报了个数组索引越界</p>
+<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220129002302745.png" alt=""></p>
+<p><strong>打印了下才发现 -1 &raquo; 1 并不等于0而是等于1</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>      原码           补码         右移一位    结果<span style="color:#960050;background-color:#1e0010">（</span>原码<span style="color:#960050;background-color:#1e0010">）</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span>1 <span style="color:#f92672">=</span> 1000 0001<span style="color:#960050;background-color:#1e0010">，</span>    1111 1111<span style="color:#960050;background-color:#1e0010">，</span>  1111 1111   <span style="color:#f92672">-</span>1
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span>2 <span style="color:#f92672">=</span> 1000 0010<span style="color:#960050;background-color:#1e0010">，</span>    1111 1110<span style="color:#960050;background-color:#1e0010">，</span>  1111 1111   <span style="color:#f92672">-</span>1
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span>3 <span style="color:#f92672">=</span> 1000 0011<span style="color:#960050;background-color:#1e0010">，</span>    1111 1101<span style="color:#960050;background-color:#1e0010">，</span>  1111 1110   <span style="color:#f92672">-</span>2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span>4 <span style="color:#f92672">=</span> 1000 0100<span style="color:#960050;background-color:#1e0010">，</span>    1111 1100<span style="color:#960050;background-color:#1e0010">，</span>  1111 1110   <span style="color:#f92672">-</span>2
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span>5 <span style="color:#f92672">=</span> 1000 0101<span style="color:#960050;background-color:#1e0010">，</span>    1111 1011<span style="color:#960050;background-color:#1e0010">，</span>  1111 1101   <span style="color:#f92672">-</span>3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">-</span>6 <span style="color:#f92672">=</span> 1000 0110<span style="color:#960050;background-color:#1e0010">，</span>    1111 1010<span style="color:#960050;background-color:#1e0010">，</span>  1111 1101   <span style="color:#f92672">-</span>3
+</span></span></code></pre></div><p><strong>对于 val / 2 != val &raquo; 1的原因是：val为负数且为奇数或者正数移位数超过类型最大位数溢出为负。</strong></p>
+<p><strong>所以用移位运算代替乘除要考虑好数据的情况</strong></p>
+
+    </div>
+  </article>
+  
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/sql.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+
