@@ -10,7 +10,7 @@
 <meta property="og:title" content="Java 对象序列化/反序列化 - A Hugo website">
 
 
-  <link href='https://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='http://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
 
 
 
@@ -116,8 +116,8 @@ C++这种半面向对象的语言中，struct(结构体)定义的是数据结构
 <p><strong>序列化</strong>（serialization）在计算机科学的数据处理中，是指将数据结构或对象状态转换成可取用格式（例如存成文件，存于缓冲，或经由网络中发送），以留待后续在相同或另一台计算机环境中，能恢复原先状态的过程。依照序列化格式重新获取字节的结果时，可以利用它来产生与原始对象相同语义的副本。对于许多对象，像是使用大量引用的复杂对象，这种序列化重建的过程并不容易。面向对象中的对象序列化，并不概括之前原始对象所关系的函数。这种过程也称为对象编组（marshalling）。从一系列字节提取数据结构的反向操作，是反序列化（也称为解编组、deserialization、unmarshalling）。</p>
 </blockquote>
 <p>综上：<strong>序列化的主要目的是通过网络传输对象或者说是将对象存储到文件系统、数据库、内存中。</strong></p>
-<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/2_zhuanhuan.jpg" alt=""></p>
-<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/a478c74d-2c48-40ae-9374-87aacf05188c.png" alt="img"></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/2_zhuanhuan.jpg" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/a478c74d-2c48-40ae-9374-87aacf05188c.png" alt="img"></p>
 <h2 id="objectoutputstream类">ObjectOutputStream类</h2>
 <p><code>java.io.ObjectOutputStream</code>
 类，将Java对象的原始数据类型写出到文件,实现对象的持久存储。</p>

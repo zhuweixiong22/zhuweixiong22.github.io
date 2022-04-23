@@ -10,7 +10,7 @@
 <meta property="og:title" content="移位运算符 val / 2 != val &gt;&gt; 1 的情况 - A Hugo website">
 
 
-  <link href='https://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='http://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
 
 
 
@@ -79,7 +79,7 @@
 
     <div class="article-content">
       <p>在写堆排序用移位运算的时候发现执行报了个数组索引越界</p>
-<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220129002302745.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/image-20220129002302745.png" alt=""></p>
 <p><strong>打印了下才发现 -1 &raquo; 1 并不等于0而是等于1</strong></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>      原码           补码         右移一位    结果<span style="color:#960050;background-color:#1e0010">（</span>原码<span style="color:#960050;background-color:#1e0010">）</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">-</span>1 <span style="color:#f92672">=</span> 1000 0001<span style="color:#960050;background-color:#1e0010">，</span>    1111 1111<span style="color:#960050;background-color:#1e0010">，</span>  1111 1111   <span style="color:#f92672">-</span>1

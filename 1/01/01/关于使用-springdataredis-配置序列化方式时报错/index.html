@@ -10,7 +10,7 @@
 <meta property="og:title" content="关于使用 SpringDataRedis 配置序列化方式时报错 - A Hugo website">
 
 
-  <link href='https://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='http://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
 
 
 
@@ -112,7 +112,7 @@ Cannot construct instance of `com.novo.springdataredis.pojo.User`
 cannot deserialize from Object value (no delegate- or property-based Creator)
 </code></pre><p>后面两行信息说的很清楚了</p>
 <p>就是pojo类的默认构造器不存在，也就是没有无参构造器，反序列化对象失败</p>
-<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/image-20220102232137313.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/image-20220102232137313.png" alt=""></p>
 <p><strong>简单来说JVM反序列化对象需要一个无参构造器</strong></p>
 <p>网上一篇博客通过源码解析：<a href="https://www.jianshu.com/p/b6797afff7df">关于Java反序列化是否需要空参构造器</a></p>
 <p>复习一下 {% post_link Java/Java对象序列化反序列化 %}</p>

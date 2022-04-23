@@ -10,7 +10,7 @@
 <meta property="og:title" content="关于 @ResponseBody 的那些事 - A Hugo website">
 
 
-  <link href='https://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='http://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
 
 
 
@@ -93,9 +93,9 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div><p>接口写好之后，我没有多想，就启动项目开始调试代码，我熟练的在chrome浏览器上输入了<code>http://localhost:8080/v1/user/test</code>这个地址，然后点击回车，没想到的是页面上提示了一个404的错误。</p>
-<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/20210513144554646.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/20210513144554646.png" alt=""></p>
 <p>这是怎么回事呢？我这接口地址没有错呀，为啥找不到接口呢？奇了怪了。我火急火燎的跑到控制台，看看有没有错误日志。让我很失望啥错误都没有输出，过滤器也准确的把我的输入的请求地址打印出来了。</p>
-<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/20210513144617968.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/20210513144617968.png" alt=""></p>
 <h1 id="苦苦寻找">苦苦寻找</h1>
 <p>为啥页面报了404的错误，而控制台没有任何错误输出呢？实在是有点诡异。问同事嘛，又不好意思，自己好歹是个高级开发工程师，404的问题都搞不定实在是说不过去。三十六计走为上，看看其他的正常的接口是怎么写的。然后，我找到了这样一个接口，这个接口是可以正常访问的，</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@ResponseBody</span>
@@ -122,7 +122,7 @@
 </span></span><span style="display:flex;"><span>  resources<span style="color:#f92672">:</span>
 </span></span><span style="display:flex;"><span>    add<span style="color:#f92672">-</span>mappings<span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>
 </span></span></code></pre></div><p>加上这两个配置之后，在访问接口的话，控制台就会打印出如下的错误日志：我们看到在查找mapping时url就变成了 <strong><code>/v1/user/v1/user/test</code></strong>，不是我们期待的 <strong><code>/v1/user/test</code></strong>。</p>
-<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/20210513232343878.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/20210513232343878.png" alt=""></p>
 <blockquote>
 <p>说明：加上<code>spring.resources.add-mappings=false</code> 禁用资源映射之后，可以输出</p>
 </blockquote>
@@ -139,9 +139,9 @@
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;/static/helloWorld.html&#34;</span><span style="color:#f92672">;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div><p>即会访问static目录下的helloWorld.html页面。</p>
-<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/20210513235046559.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/20210513235046559.png" alt=""></p>
 <p>访问结果是：</p>
-<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/20210513235103649.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/20210513235103649.png" alt=""></p>
 <p>页面可以正常的跳转，说明，不加上<code>@ResponseBody</code>注解确实会默认返回一个视图，这是正常的能找到页面的视图，如果返回一个不存在的视图会怎样呢？</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@RequestMapping</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;/v1/user/test2&#34;</span><span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">public</span> String <span style="color:#a6e22e">queryUserHtml3</span><span style="color:#f92672">()</span> <span style="color:#f92672">{</span>

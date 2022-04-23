@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Redis on A Hugo website</title>
-    <link>https://zhuweixiong22.github.io/categories/redis/</link>
+    <link>http://zhuweixiong22.github.io/categories/redis/</link>
     <description>Recent content in Redis on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://zhuweixiong22.github.io/categories/redis/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="http://zhuweixiong22.github.io/categories/redis/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Redis 综合</title>
-      <link>https://zhuweixiong22.github.io/1/01/01/redis-%E7%BB%BC%E5%90%88/</link>
+      <link>http://zhuweixiong22.github.io/1/01/01/redis-%E7%BB%BC%E5%90%88/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/1/01/01/redis-%E7%BB%BC%E5%90%88/</guid>
+      <guid>http://zhuweixiong22.github.io/1/01/01/redis-%E7%BB%BC%E5%90%88/</guid>
       <description>Redis 基础 概念 数据类型 通用命令 Jedis Redis 高级 持久化 持久化简介 RDB （Redis DataBase）
 save指令   命令
 save   手动指定一次保存操作
@@ -38,10 +38,10 @@ bgsave指令工作原理</description>
     
     <item>
       <title>关于 Redis 事务是否满足原子性</title>
-      <link>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E-redis-%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%AD%90%E6%80%A7/</link>
+      <link>http://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E-redis-%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%AD%90%E6%80%A7/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E-redis-%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%AD%90%E6%80%A7/</guid>
+      <guid>http://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E-redis-%E4%BA%8B%E5%8A%A1%E6%98%AF%E5%90%A6%E6%BB%A1%E8%B6%B3%E5%8E%9F%E5%AD%90%E6%80%A7/</guid>
       <description>个人理解这个问题需要分两种情况讨论
  multi开启事务后命令队列语法有错误或取消事务discard multi开启事务后命令队列运行错误  第一种情况 可以看到开启事务后输入一个错误语法命令get name zhangsan后立即显示错误提示了，再执行exec自然也是不行的，所有命令都不会执行。
 discard的情况就不用说了，取消事务。
@@ -53,10 +53,10 @@ set name后用了list的指令，可以看到命令执行后，能够正确运�
     
     <item>
       <title>关于使用 SpringDataRedis 配置序列化方式时报错</title>
-      <link>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8-springdataredis-%E9%85%8D%E7%BD%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F%E6%97%B6%E6%8A%A5%E9%94%99/</link>
+      <link>http://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8-springdataredis-%E9%85%8D%E7%BD%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F%E6%97%B6%E6%8A%A5%E9%94%99/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8-springdataredis-%E9%85%8D%E7%BD%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F%E6%97%B6%E6%8A%A5%E9%94%99/</guid>
+      <guid>http://zhuweixiong22.github.io/1/01/01/%E5%85%B3%E4%BA%8E%E4%BD%BF%E7%94%A8-springdataredis-%E9%85%8D%E7%BD%AE%E5%BA%8F%E5%88%97%E5%8C%96%E6%96%B9%E5%BC%8F%E6%97%B6%E6%8A%A5%E9%94%99/</guid>
       <description>SpringBoot下RedisConfig配置
 /** * @author novo * @date 2022/1/2-22:13 */ @Configuration public class RedisConfig {  @Bean  public RedisTemplate&amp;lt;String,Object&amp;gt; redisTemplate(LettuceConnectionFactory lettuceConnectionFactory){  RedisTemplate&amp;lt;String, Object&amp;gt; redisTemplate = new RedisTemplate&amp;lt;&amp;gt;();  //为string类型的key设置序列化  redisTemplate.setKeySerializer(new StringRedisSerializer());  //为string类型的value设置序列化  redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());  //redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer(Object.class));  //为hash设置序列化  redisTemplate.setHashKeySerializer(new StringRedisSerializer());  redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());  // 设置 RedisConnection 工厂。 它就是实现多种 Java Redis 客户端接入的工厂  redisTemplate.setConnectionFactory(lettuceConnectionFactory);  return redisTemplate;  } } 报错信息
 org.springframework.data.redis.serializer.SerializationException: Could not read JSON: Cannot construct instance of `com.</description>

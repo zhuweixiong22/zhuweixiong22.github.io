@@ -2,197 +2,161 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on A Hugo website</title>
-    <link>https://zhuweixiong22.github.io/tags/</link>
+    <link>http://zhuweixiong22.github.io/tags/</link>
     <description>Recent content in Tags on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 31 Dec 2021 11:16:17 +0000</lastBuildDate><atom:link href="https://zhuweixiong22.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 31 Dec 2021 11:16:17 +0000</lastBuildDate><atom:link href="http://zhuweixiong22.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Java</title>
-      <link>https://zhuweixiong22.github.io/tags/java/</link>
+      <link>http://zhuweixiong22.github.io/tags/java/</link>
       <pubDate>Fri, 31 Dec 2021 11:16:17 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/java/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/java/</guid>
       <description></description>
     </item>
     
     <item>
       <title>面试</title>
-      <link>https://zhuweixiong22.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
+      <link>http://zhuweixiong22.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
       <pubDate>Fri, 31 Dec 2021 11:16:17 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/%E9%9D%A2%E8%AF%95/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/%E9%9D%A2%E8%AF%95/</guid>
       <description></description>
     </item>
     
     <item>
       <title>思维导图</title>
-      <link>https://zhuweixiong22.github.io/tags/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
+      <link>http://zhuweixiong22.github.io/tags/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</link>
       <pubDate>Sun, 05 Dec 2021 17:16:17 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE/</guid>
       <description></description>
     </item>
     
     <item>
       <title>算法</title>
-      <link>https://zhuweixiong22.github.io/tags/%E7%AE%97%E6%B3%95/</link>
+      <link>http://zhuweixiong22.github.io/tags/%E7%AE%97%E6%B3%95/</link>
       <pubDate>Sat, 04 Dec 2021 17:16:17 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Actor</title>
-      <link>https://zhuweixiong22.github.io/tags/actor/</link>
+      <link>http://zhuweixiong22.github.io/tags/actor/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/actor/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/actor/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Beach</title>
-      <link>https://zhuweixiong22.github.io/tags/beach/</link>
+      <link>http://zhuweixiong22.github.io/tags/beach/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/beach/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Bookcase</title>
-      <link>https://zhuweixiong22.github.io/tags/bookcase/</link>
-      <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://zhuweixiong22.github.io/tags/bookcase/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/beach/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Fahrenheit</title>
-      <link>https://zhuweixiong22.github.io/tags/fahrenheit/</link>
+      <link>http://zhuweixiong22.github.io/tags/fahrenheit/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/fahrenheit/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/fahrenheit/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Interest</title>
-      <link>https://zhuweixiong22.github.io/tags/interest/</link>
+      <link>http://zhuweixiong22.github.io/tags/interest/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/interest/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Lamb</title>
-      <link>https://zhuweixiong22.github.io/tags/lamb/</link>
-      <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://zhuweixiong22.github.io/tags/lamb/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/interest/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Nothing</title>
-      <link>https://zhuweixiong22.github.io/tags/nothing/</link>
+      <link>http://zhuweixiong22.github.io/tags/nothing/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/nothing/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/nothing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Riddles</title>
-      <link>https://zhuweixiong22.github.io/tags/riddles/</link>
+      <link>http://zhuweixiong22.github.io/tags/riddles/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/riddles/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Shell</title>
-      <link>https://zhuweixiong22.github.io/tags/shell/</link>
-      <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://zhuweixiong22.github.io/tags/shell/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/riddles/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Snowflakes</title>
-      <link>https://zhuweixiong22.github.io/tags/snowflakes/</link>
+      <link>http://zhuweixiong22.github.io/tags/snowflakes/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/snowflakes/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/snowflakes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Visitor</title>
-      <link>https://zhuweixiong22.github.io/tags/visitor/</link>
+      <link>http://zhuweixiong22.github.io/tags/visitor/</link>
       <pubDate>Fri, 09 Feb 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/visitor/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>go</title>
-      <link>https://zhuweixiong22.github.io/tags/go/</link>
-      <pubDate>Sat, 30 Dec 2017 21:49:57 -0700</pubDate>
-      
-      <guid>https://zhuweixiong22.github.io/tags/go/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/visitor/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Redis</title>
-      <link>https://zhuweixiong22.github.io/tags/redis/</link>
+      <link>http://zhuweixiong22.github.io/tags/redis/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/redis/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/redis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SpringBoot</title>
-      <link>https://zhuweixiong22.github.io/tags/springboot/</link>
+      <link>http://zhuweixiong22.github.io/tags/springboot/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/springboot/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/springboot/</guid>
       <description></description>
     </item>
     
     <item>
       <title>SpringDataRedis</title>
-      <link>https://zhuweixiong22.github.io/tags/springdataredis/</link>
+      <link>http://zhuweixiong22.github.io/tags/springdataredis/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/springdataredis/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/springdataredis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>排序</title>
-      <link>https://zhuweixiong22.github.io/tags/%E6%8E%92%E5%BA%8F/</link>
+      <link>http://zhuweixiong22.github.io/tags/%E6%8E%92%E5%BA%8F/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/%E6%8E%92%E5%BA%8F/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/%E6%8E%92%E5%BA%8F/</guid>
       <description></description>
     </item>
     
     <item>
       <title>链表</title>
-      <link>https://zhuweixiong22.github.io/tags/%E9%93%BE%E8%A1%A8/</link>
+      <link>http://zhuweixiong22.github.io/tags/%E9%93%BE%E8%A1%A8/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://zhuweixiong22.github.io/tags/%E9%93%BE%E8%A1%A8/</guid>
+      <guid>http://zhuweixiong22.github.io/tags/%E9%93%BE%E8%A1%A8/</guid>
       <description></description>
     </item>
     

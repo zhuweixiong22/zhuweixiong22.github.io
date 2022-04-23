@@ -10,7 +10,7 @@
 <meta property="og:title" content="LeetCode160.相交链表 - A Hugo website">
 
 
-  <link href='https://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='http://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
 
 
 
@@ -81,7 +81,7 @@
       <h4 id="160-相交链表httpsleetcode-cncomproblemsintersection-of-two-linked-lists"><a href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/">160. 相交链表</a></h4>
 <p>给你两个单链表的头节点 <code>headA</code> 和 <code>headB</code> ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 <code>null</code> 。</p>
 <p>图示两个链表在节点 <code>c1</code> 开始相交**：**</p>
-<p><img src="https://gitee.com/iamnovo/pic/raw/master/images/160_statement.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/160_statement.png" alt=""></p>
 <p>题目数据 <strong>保证</strong> 整个链式结构中不存在环。</p>
 <p><strong>注意</strong>，函数返回结果后，链表必须 <strong>保持其原始结构</strong> 。</p>
 <h4 id="题解">题解</h4>
@@ -122,7 +122,7 @@
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> curA<span style="color:#f92672">;</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div><h5 id="双指针优雅版">双指针优雅版</h5>
-<p>确实优雅，如果两个链表长度不相等，短链表比较快走到null，就接着走长链表的路，当长链表走到null时，接着走短链表的路。**本质上就是消除长度差。**leetcode上有个比较好的动图：<img src="https://gitee.com/iamnovo/pic/raw/master/images/Honeycam%202022-01-30%2022-24-01.gif" alt=""></p>
+<p>确实优雅，如果两个链表长度不相等，短链表比较快走到null，就接着走长链表的路，当长链表走到null时，接着走短链表的路。**本质上就是消除长度差。**leetcode上有个比较好的动图：<img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/Honeycam%202022-01-30%2022-24-01.gif" alt=""></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> ListNode <span style="color:#a6e22e">getIntersectionNode</span><span style="color:#f92672">(</span>ListNode headA<span style="color:#f92672">,</span> ListNode headB<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
 </span></span><span style="display:flex;"><span>    ListNode curA <span style="color:#f92672">=</span> headA<span style="color:#f92672">;</span>
 </span></span><span style="display:flex;"><span>    ListNode curB <span style="color:#f92672">=</span> headB<span style="color:#f92672">;</span>

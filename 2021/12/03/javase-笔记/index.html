@@ -10,7 +10,7 @@
 <meta property="og:title" content="JavaSE 笔记 - A Hugo website">
 
 
-  <link href='https://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
+  <link href='http://zhuweixiong22.github.io/favicon.ico' rel='icon' type='image/x-icon'/>
 
 
 
@@ -2706,7 +2706,7 @@ Student{name=&#39;mark&#39;, age=16}
 <h2 id="11-概述-1">1.1 概述</h2>
 <p>现实生活中，我们常会看到这样的一种集合：IP地址与主机名，身份证号与个人，系统用户名与系统用户对象等，这种一一对应的关系，就叫做映射。Java提供了专门的集合类用来存放这种对象关系的对象，即<code>java.util.Map</code>接口。</p>
 <p>我们通过查看<code>Map</code>接口描述，发现<code>Map</code>接口下的集合与<code>Collection</code>接口下的集合，它们存储数据的形式不同，如下图。</p>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5CCollection%E4%B8%8EMap.bmp" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/Collection%E4%B8%8EMap.bmp" alt=""></p>
 <ul>
 <li><code>Collection</code>中的集合，元素是孤立存在的（理解为单身），向集合中存储元素采用一个个元素的方式存储。</li>
 <li><code>Map</code>中的集合，元素是成对存在的(理解为夫妻)。每个元素由键与值两部分组成，通过键可以找对所对应的值。</li>
@@ -2788,7 +2788,7 @@ Student{name=&#39;mark&#39;, age=16}
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div><p>遍历图解：</p>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5CMap%E9%9B%86%E5%90%88%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E4%B8%80.bmp" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/Map%E9%9B%86%E5%90%88%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E4%B8%80.bmp" alt=""></p>
 <h2 id="15--entry键值对对象">1.5  Entry键值对对象</h2>
 <p>我们已经知道，<code>Map</code>中存放的是两种对象，一种称为<strong>key</strong>(键)，一种称为<strong>value</strong>(值)，它们在在<code>Map</code>中是一一对应关系，这一对对象又称做<code>Map</code>中的一个<code>Entry(项)</code>。<code>Entry</code>将键值对的对应关系封装成了对象。即键值对对象，这样我们在遍历<code>Map</code>集合时，就可以从每一个键值对（<code>Entry</code>）对象中获取对应的键与对应的值。</p>
 <p>既然Entry表示了一对键和值，那么也同样提供了获取对应键和对应值得方法：</p>
@@ -2836,7 +2836,7 @@ Student{name=&#39;mark&#39;, age=16}
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div><p>遍历图解：</p>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5CMap%E9%9B%86%E5%90%88%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E4%BA%8C.bmp" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/Map%E9%9B%86%E5%90%88%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E4%BA%8C.bmp" alt=""></p>
 <blockquote>
 <p>tips：Map集合不能直接使用迭代器或者foreach进行遍历。但是转成Set之后就可以使用了。</p>
 </blockquote>
@@ -2987,7 +2987,7 @@ Student{name=&#39;mark&#39;, age=16}
 </blockquote>
 <h3 id="12-异常体系">1.2 异常体系</h3>
 <p>异常机制其实是帮助我们<strong>找到</strong>程序中的问题，异常的根类是<code>java.lang.Throwable</code>，其下有两个子类：<code>java.lang.Error</code>与<code>java.lang.Exception</code>，平常所说的异常指<code>java.lang.Exception</code>。</p>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5C%E5%BC%82%E5%B8%B8%E4%BD%93%E7%B3%BB.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/%E5%BC%82%E5%B8%B8%E4%BD%93%E7%B3%BB.png" alt=""></p>
 <p><strong>Throwable体系：</strong></p>
 <ul>
 <li><strong>Error</strong>:严重错误Error，无法通过处理的错误，只能事先避免，好比绝症。</li>
@@ -3008,7 +3008,7 @@ Student{name=&#39;mark&#39;, age=16}
 </li>
 </ul>
 <p><em><strong>出现异常,不要紧张,把异常的简单类名,拷贝到API中去查。</strong></em></p>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5C%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E6%9F%A5%E7%9C%8B.bmp" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E6%9F%A5%E7%9C%8B.bmp" alt=""></p>
 <h3 id="13-异常分类">1.3 异常分类</h3>
 <p>我们平常说的异常就是指Exception，因为这类异常一旦出现，我们就要对代码进行更正，修复程序。</p>
 <p><strong>异常(Exception)的分类</strong>:根据在编译时期还是运行时期去检查异常?</p>
@@ -3016,7 +3016,7 @@ Student{name=&#39;mark&#39;, age=16}
 <li><strong>编译时期异常</strong>:checked异常。在编译时期,就会检查,如果没有处理异常,则编译失败。(如日期格式化异常)</li>
 <li><strong>运行时期异常</strong>:runtime异常。在运行时期,检查异常.在编译时期,运行异常不会编译器检测(不报错)。(如数学异常)</li>
 </ul>
-<p>​    <img src="D:%5CSoftware%5CTypora%5Casset%5C%E5%BC%82%E5%B8%B8%E7%9A%84%E5%88%86%E7%B1%BB.png" alt=""></p>
+<p>​    <img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/%E5%BC%82%E5%B8%B8%E7%9A%84%E5%88%86%E7%B1%BB.png" alt=""></p>
 <h3 id="14-----异常的产生过程解析">1.4     异常的产生过程解析</h3>
 <p>先运行下面的程序，程序会产生一个数组索引越界异常ArrayIndexOfBoundsException。我们通过图解来解析下异常产生的过程。</p>
 <p>工具类</p>
@@ -3037,7 +3037,7 @@ Student{name=&#39;mark&#39;, age=16}
 </span></span><span style="display:flex;"><span>    <span style="color:#f92672">}</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
 </span></span></code></pre></div><p>上述程序执行过程图解：</p>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5C%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/%E5%BC%82%E5%B8%B8%E4%BA%A7%E7%94%9F%E8%BF%87%E7%A8%8B.png" alt=""></p>
 <h2 id="异常的处理">异常的处理</h2>
 <p>Java异常处理的五个关键字：<strong>try、catch、finally、throw、throws</strong></p>
 <h3 id="抛出异常关键字throw">抛出异常关键字throw</h3>
@@ -3265,7 +3265,7 @@ Student{name=&#39;mark&#39;, age=16}
 </span></span></code></pre></div><blockquote>
 <p><strong>当只有在try或者catch中调用退出JVM的相关方法,此时finally才不会执行,否则finally永远会执行。</strong></p>
 </blockquote>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5C%E6%AD%BB%E4%BA%86%E9%83%BD%E8%A6%81try.bmp" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/%E6%AD%BB%E4%BA%86%E9%83%BD%E8%A6%81try.bmp" alt=""></p>
 <p>finally字句块中的return语句会遮蔽try块中的return</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>  <span style="color:#66d9ef">int</span> a<span style="color:#f92672">=</span>10<span style="color:#f92672">;</span>
 </span></span><span style="display:flex;"><span>  System<span style="color:#f92672">.</span><span style="color:#a6e22e">out</span><span style="color:#f92672">.</span><span style="color:#a6e22e">println</span><span style="color:#f92672">(</span>getA<span style="color:#f92672">(</span>a<span style="color:#f92672">));</span><span style="color:#75715e">// 输出a=20;
@@ -3368,7 +3368,7 @@ Student{name=&#39;mark&#39;, age=16}
 <li><strong>并发</strong>：指两个或多个事件在<strong>同一个时间段内</strong>发生。</li>
 <li><strong>并行</strong>：指两个或多个事件在<strong>同一时刻</strong>发生（同时发生）。</li>
 </ul>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5C%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%B9%B6%E5%8F%91.bmp" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/%E5%B9%B6%E8%A1%8C%E4%B8%8E%E5%B9%B6%E5%8F%91.bmp" alt=""></p>
 <p>在操作系统中，安装了多个程序，并发指的是在一段时间内宏观上有多个程序同时运行，这在单 CPU 系统中，每一时刻只能有一道程序执行，即微观上这些程序是分时的交替运行，只不过是给人的感觉是同时运行，那是因为分时交替运行的时间是非常短的。</p>
 <p>而在多个 CPU 系统中，则这些可以并发执行的程序便可以分配到多个处理器上（CPU），实现多任务并行执行，即利用每个处理器来处理一个可以并发执行的程序，这样多个程序便可以同时执行。目前电脑市场上说的多核 CPU，便是多核处理器，核 越多，并行处理的程序越多，能大大的提高电脑运行的效率。</p>
 <blockquote>
@@ -3386,9 +3386,9 @@ Student{name=&#39;mark&#39;, age=16}
 </ul>
 <p>我们可以再电脑底部任务栏，右键&mdash;&ndash;&gt;打开任务管理器,可以查看当前任务的进程：</p>
 <p><strong>进程</strong></p>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5C%E8%BF%9B%E7%A8%8B%E6%A6%82%E5%BF%B5.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/%E8%BF%9B%E7%A8%8B%E6%A6%82%E5%BF%B5.png" alt=""></p>
 <p><strong>线程</strong></p>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5C%E7%BA%BF%E7%A8%8B%E6%A6%82%E5%BF%B5.png" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/%E7%BA%BF%E7%A8%8B%E6%A6%82%E5%BF%B5.png" alt=""></p>
 <p><strong>线程调度:</strong></p>
 <ul>
 <li>
@@ -3545,7 +3545,7 @@ tips:Runnable对象仅仅作为Thread对象的target，Runnable实现类里包�
 </ul>
 <h3 id="13-io的流向说明图解">1.3 IO的流向说明图解</h3>
 <p>输入输出流是相对于内存而言的，程序运行在内存当中，文件保存在磁盘里面，如果读一个文件，从磁盘到内存当中，属于输入流。如果从程序中输出到文件中，便是内存写入到磁盘，是输出流。</p>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5C1_io.jpg" alt=""></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/1_io.jpg" alt=""></p>
 <h3 id="14-顶级父类们">1.4 顶级父类们</h3>
 <table>
 <thead>
@@ -3849,7 +3849,7 @@ tips:Runnable对象仅仅作为Thread对象的target，Runnable实现类里包�
 </span></span><span style="display:flex;"><span>cd
 </span></span><span style="display:flex;"><span>ed
 </span></span></code></pre></div><p>错误数据<code>d</code>，是由于最后一次读取时，只读取一个字节<code>e</code>，数组中，上次读取的数据没有被完全替换（即数组有多余的空数据被打印出来了），所以要通过<code>len</code> ，获取有效的字节，代码使用演示：</p>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5Cimage-20210824234321702.png" alt="image-20210824234321702"></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/image-20210824234321702.png" alt="image-20210824234321702"></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">FISRead</span> <span style="color:#f92672">{</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">main</span><span style="color:#f92672">(</span>String<span style="color:#f92672">[]</span> args<span style="color:#f92672">)</span> <span style="color:#66d9ef">throws</span> IOException<span style="color:#f92672">{</span>
 </span></span><span style="display:flex;"><span>      	<span style="color:#75715e">// 使用文件名称创建流对象.
@@ -3873,7 +3873,7 @@ tips:Runnable对象仅仅作为Thread对象的target，Runnable实现类里包�
 </span></span><span style="display:flex;"><span>cd
 </span></span><span style="display:flex;"><span>e
 </span></span></code></pre></div><blockquote>
-<p><img src="D:%5CSoftware%5CTypora%5Casset%5Cimage-20210824232506090.png" alt="image-20210824232506090"></p>
+<p><img src="https://zwx-images-1305338888.cos.ap-guangzhou.myqcloud.com/typora/image-20210824232506090.png" alt="image-20210824232506090"></p>
 <p>小贴士：</p>
 <p>使用数组读取，每次读取多个字节，减少了系统间的IO操作次数，从而提高了读写的效率，建议开发中使用。</p>
 </blockquote>
